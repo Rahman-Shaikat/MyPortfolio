@@ -1,0 +1,73 @@
+.admin-auth-body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(101, 87, 255, 0.16), transparent 32rem),
+    radial-gradient(circle at bottom right, rgba(13, 202, 240, 0.12), transparent 30rem),
+    var(--ds-body-bg);
+}
+
+.admin-auth-shell {
+  min-height: 100vh;
+  padding: 2rem 1rem;
+}
+
+.admin-auth-card {
+  width: min(100%, 460px);
+  border: 1px solid var(--ds-border-color);
+  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.1);
+}
+
+.admin-auth-logo {
+  width: 54px;
+  height: 54px;
+}
+
+.admin-password-toggle {
+  min-width: 46px;
+}
+
+.admin-sidebar-logo {
+  width: 34px;
+  height: 34px;
+}
+
+.admin-sidebar-profile {
+  margin: 1.25rem;
+  padding: 1rem;
+  border: 1px solid var(--ds-border-color);
+  border-radius: 1rem;
+  background: var(--ds-body-bg);
+}
+
+.admin-dashboard-hero {
+  overflow: hidden;
+  position: relative;
+}
+
+.admin-dashboard-hero::after {
+  position: absolute;
+  right: -4rem;
+  bottom: -5rem;
+  width: 16rem;
+  height: 16rem;
+  content: "";
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.admin-stat-icon {
+  flex: 0 0 auto;
+}
+
+.admin-table-avatar {
+  width: 38px;
+  height: 38px;
+  object-fit: cover;
+}
+
+@media (max-width: 990px) {
+  html.expanded #content,
+  html.collapsed #content {
+    margin-left: 0;
+  }
+}
