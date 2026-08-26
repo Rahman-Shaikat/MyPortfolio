@@ -13,6 +13,12 @@ use Illuminate\Database\Eloquent\Model;
     'slug',
     'url',
     'description',
+    'role',
+    'contribution',
+    'challenges',
+    'responsibilities',
+    'outcome',
+    'contribution_type',
     'technologies',
     'preview_image',
     'is_personal',
@@ -29,6 +35,7 @@ class Project extends Model
      */
     protected $attributes = [
         'is_personal' => false,
+        'contribution_type' => 'contributor',
         'sort_order' => 0,
         'status' => true,
     ];
@@ -40,6 +47,7 @@ class Project extends Model
     {
         return [
             'technologies' => 'array',
+            'responsibilities' => 'array',
             'is_personal' => 'boolean',
             'sort_order' => 'integer',
             'status' => 'boolean',

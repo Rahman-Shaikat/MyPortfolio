@@ -22,7 +22,7 @@
             <div class="card-body">
                 <div class="row align-items-center g-5">
                     <div class="col-lg-auto">
-                        <img src="{{ $profile->profile_image ? asset('storage/'.$profile->profile_image) : asset('assets/images/My_pic.png') }}" class="admin-profile-avatar" alt="{{ $profile->name }}">
+                        <img src="{{ $profile->profile_image ? asset('storage/'.$profile->profile_image) : asset('assets/images/My_Pic.png') }}" class="admin-profile-avatar" alt="{{ $profile->name }}">
                     </div>
                     <div class="col-lg">
                         <div class="d-flex flex-wrap align-items-center gap-3 mb-2">

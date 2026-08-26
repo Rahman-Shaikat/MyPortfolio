@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Publication;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Arr;
@@ -13,6 +14,27 @@ use Throwable;
 
 class PublicationService
 {
+    /**
+     * @return Collection<int, Publication>
+     */
+    public function publishedPublications(): Collection
+    {
+        return $this->publishedPublicationsQuery()->get();
+    }
+
+    /**
+     * @return Collection<int, Publication>
+     */
+    public function featuredPublications(int $limit = 3): Collection
+    {
+        return $this->publishedPublicationsQuery()->limit($limit)->get();
+    }
+
+    public function publishedPublicationBySlug(string $slug): Publication
+    {
+        return $this->publishedPublicationsQuery()->where('slug', $slug)->firstOrFail();
+    }
+
     public function adminPublications(?string $search = null, int $perPage = 10): LengthAwarePaginator
     {
         return Publication::query()
@@ -92,6 +114,18 @@ class PublicationService
         $publication->delete();
 
         $this->deleteImage($imagePath);
+    }
+
+    /**
+     * @return Builder<Publication>
+     */
+    private function publishedPublicationsQuery(): Builder
+    {
+        return Publication::query()
+            ->published()
+            ->orderBy('sort_order')
+            ->orderByDesc('published_at')
+            ->orderBy('id');
     }
 
     private function storeImage(UploadedFile $image): string

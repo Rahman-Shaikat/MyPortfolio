@@ -25,6 +25,10 @@ class ProjectFactory extends Factory
             'slug' => Str::slug($name).'-'.Str::lower(Str::random(6)),
             'url' => fake()->url(),
             'description' => fake()->paragraph(),
+            'role' => 'Laravel Developer',
+            'contribution' => fake()->paragraph(),
+            'responsibilities' => ['Backend development', 'Database design'],
+            'contribution_type' => 'contributor',
             'technologies' => fake()->randomElements(
                 ['Laravel', 'PHP', 'MySQL', 'Redis', 'JavaScript', 'Blade'],
                 3

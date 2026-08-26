@@ -14,6 +14,17 @@
                             <input id="title" name="title" type="text" class="form-control @error('title') is-invalid @enderror" value="{{ old('title', $publication->title ?? '') }}" required>
                             @error('title')<div class="invalid-feedback">{{ $message }}</div>@enderror
                         </div>
+                        <div class="col-md-6">
+                            <label for="slug" class="form-label">Slug</label>
+                            <input id="slug" name="slug" type="text" class="form-control @error('slug') is-invalid @enderror" value="{{ old('slug', $publication->slug ?? '') }}" placeholder="Generated from title when blank">
+                            @error('slug')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                        </div>
+                        <div class="col-md-6">
+                            <label for="authors" class="form-label">Authors (comma separated)</label>
+                            <input id="authors" name="authors" type="text" class="form-control @error('authors') is-invalid @enderror" value="{{ old('authors', isset($publication) ? collect($publication->authors)->join(', ') : '') }}">
+                            @error('authors')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            @error('authors.*')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
+                        </div>
                         <div class="col-md-7">
                             <label for="publisher" class="form-label">Publisher</label>
                             <input id="publisher" name="publisher" type="text" class="form-control @error('publisher') is-invalid @enderror" value="{{ old('publisher', $publication->publisher ?? '') }}">
@@ -30,6 +41,11 @@
                             @error('url')<div class="invalid-feedback">{{ $message }}</div>@enderror
                         </div>
                         <div class="col-12">
+                            <label for="reference_url" class="form-label">Secondary reference URL</label>
+                            <input id="reference_url" name="reference_url" type="url" class="form-control @error('reference_url') is-invalid @enderror" value="{{ old('reference_url', $publication->reference_url ?? '') }}" placeholder="https://scholar.google.com/...">
+                            @error('reference_url')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                        </div>
+                        <div class="col-12">
                             @include('admin.partials.image-uploader', [
                                 'inputName' => 'image',
                                 'label' => 'Publication image',
@@ -41,6 +57,17 @@
                             <label for="description" class="form-label">Description</label>
                             <textarea id="description" name="description" rows="6" class="form-control @error('description') is-invalid @enderror">{{ old('description', $publication->description ?? '') }}</textarea>
                             @error('description')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                        </div>
+                        <div class="col-12">
+                            <label for="research_topics" class="form-label">Research topics (comma separated)</label>
+                            <input id="research_topics" name="research_topics" type="text" class="form-control @error('research_topics') is-invalid @enderror" value="{{ old('research_topics', isset($publication) ? collect($publication->research_topics)->join(', ') : '') }}">
+                            @error('research_topics')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            @error('research_topics.*')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
+                        </div>
+                        <div class="col-12">
+                            <label for="contribution" class="form-label">My research contribution (only if factually known)</label>
+                            <textarea id="contribution" name="contribution" rows="4" class="form-control @error('contribution') is-invalid @enderror">{{ old('contribution', $publication->contribution ?? '') }}</textarea>
+                            @error('contribution')<div class="invalid-feedback">{{ $message }}</div>@enderror
                         </div>
                     </div>
                 </div>

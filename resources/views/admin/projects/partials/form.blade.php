@@ -37,6 +37,40 @@
                             <textarea id="description" name="description" rows="6" class="form-control @error('description') is-invalid @enderror">{{ old('description', $project->description ?? '') }}</textarea>
                             @error('description')<div class="invalid-feedback">{{ $message }}</div>@enderror
                         </div>
+                        <div class="col-md-6">
+                            <label for="role" class="form-label">My role</label>
+                            <input id="role" name="role" type="text" class="form-control @error('role') is-invalid @enderror" value="{{ old('role', $project->role ?? '') }}" placeholder="Backend Developer">
+                            @error('role')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                        </div>
+                        <div class="col-md-6">
+                            <label for="contribution_type" class="form-label">Structured-data relationship</label>
+                            <select id="contribution_type" name="contribution_type" class="form-select @error('contribution_type') is-invalid @enderror">
+                                <option value="contributor" @selected(old('contribution_type', $project->contribution_type ?? 'contributor') === 'contributor')>Contributor</option>
+                                <option value="creator" @selected(old('contribution_type', $project->contribution_type ?? 'contributor') === 'creator')>Creator</option>
+                            </select>
+                            @error('contribution_type')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                        </div>
+                        <div class="col-12">
+                            <label for="contribution" class="form-label">Actual contribution</label>
+                            <textarea id="contribution" name="contribution" rows="4" class="form-control @error('contribution') is-invalid @enderror">{{ old('contribution', $project->contribution ?? '') }}</textarea>
+                            @error('contribution')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                        </div>
+                        <div class="col-12">
+                            <label for="responsibilities" class="form-label">Responsibilities (comma separated)</label>
+                            <input id="responsibilities" name="responsibilities" type="text" class="form-control @error('responsibilities') is-invalid @enderror" value="{{ old('responsibilities', isset($project) ? collect($project->responsibilities)->join(', ') : '') }}" placeholder="Backend development, Database design, API integration">
+                            @error('responsibilities')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            @error('responsibilities.*')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
+                        </div>
+                        <div class="col-md-6">
+                            <label for="challenges" class="form-label">Technical challenges</label>
+                            <textarea id="challenges" name="challenges" rows="4" class="form-control @error('challenges') is-invalid @enderror">{{ old('challenges', $project->challenges ?? '') }}</textarea>
+                            @error('challenges')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                        </div>
+                        <div class="col-md-6">
+                            <label for="outcome" class="form-label">Outcome</label>
+                            <textarea id="outcome" name="outcome" rows="4" class="form-control @error('outcome') is-invalid @enderror">{{ old('outcome', $project->outcome ?? '') }}</textarea>
+                            @error('outcome')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                        </div>
                         <div class="col-12">
                             <label for="technologies" class="form-label">Technologies (comma separated)</label>
                             <input id="technologies" name="technologies" type="text" class="form-control @error('technologies') is-invalid @enderror" value="{{ old('technologies', isset($project) ? collect($project->technologies)->join(', ') : '') }}" placeholder="Laravel, PHP, MySQL">

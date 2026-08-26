@@ -163,7 +163,7 @@ test('the public resume endpoint serves an uploaded resume', function () {
     $resume = UploadedFile::fake()->create('resume.pdf', 100, 'application/pdf')->store('profiles/resumes', 'public');
     Profile::factory()->create(['resume' => $resume]);
 
-    $this->get(route('resume.show'))
+    $this->get(route('resume.file'))
         ->assertSuccessful()
         ->assertHeader('content-disposition', 'inline; filename="Shamsur-Rahman-Resume.pdf"');
 });

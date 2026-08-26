@@ -1,21 +1,4 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Projects by {{ $profile->name }}, including publishing platforms, Laravel applications, eCommerce systems, and content workflows.">
-
-        <title>Projects | {{ $profile->name }}</title>
-        <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}" sizes="any">
-
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body>
-        <a class="skip-link" href="#main">Skip to content</a>
-
-        @include('frontend.partials.site-header')
-
-        <main id="main">
+<x-frontend::layout :profile="$profile" :seo="$seo">
             <section class="section-pad muted-band projects-page-section" id="all-projects" aria-labelledby="all-projects-title">
                 <div class="container">
                     <div class="section-heading center reveal">
@@ -65,8 +48,4 @@
                     @endif
                 </div>
             </section>
-        </main>
-
-        @include('frontend.partials.site-footer')
-    </body>
-</html>
+</x-frontend::layout>

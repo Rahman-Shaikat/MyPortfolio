@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="Shamsur Rahman">
+    <meta name="robots" content="noindex,nofollow,noarchive">
     <title>Admin Login | Shamsur Rahman</title>
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('admin/assets/images/favicon/apple-icon-180x180.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('admin/assets/images/favicon/favicon-32x32.png') }}">

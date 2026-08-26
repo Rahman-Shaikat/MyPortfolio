@@ -10,11 +10,16 @@ use Illuminate\Database\Eloquent\Model;
 
 #[Fillable([
     'title',
+    'slug',
+    'authors',
     'publisher',
     'published_at',
     'description',
     'image',
     'url',
+    'reference_url',
+    'research_topics',
+    'contribution',
     'sort_order',
     'status',
 ])]
@@ -38,6 +43,8 @@ class Publication extends Model
     {
         return [
             'published_at' => 'date',
+            'authors' => 'array',
+            'research_topics' => 'array',
             'sort_order' => 'integer',
             'status' => 'boolean',
         ];

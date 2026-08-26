@@ -1,21 +1,4 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="{{ $profile->seo_description ?: $profile->name.' portfolio' }}">
-
-        <title>{{ $profile->name }} Portfolio</title>
-        <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}" sizes="any">
-
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body>
-        <a class="skip-link" href="#main">Skip to content</a>
-
-        @include('frontend.partials.site-header')
-
-        <main id="main">
+<x-frontend::layout :profile="$profile" :seo="$seo">
             <section class="hero section-pad" id="home" aria-labelledby="hero-title">
                 <div class="ambient-grid" aria-hidden="true"></div>
                 <div class="container hero-grid">
@@ -30,8 +13,8 @@
                         </p>
 
                         <div class="hero-actions" aria-label="Primary calls to action">
-                            <a class="button button-primary" href="#projects">View projects</a>
-                            <a class="button button-secondary" href="#contact">Start a conversation</a>
+                            <a class="button button-primary" href="{{ route('projects.index') }}">View Laravel and backend projects</a>
+                            <a class="button button-secondary" href="{{ route('contact') }}">Start a conversation</a>
                         </div>
 
                         <div class="hero-metrics" aria-label="Professional highlights">
@@ -47,11 +30,11 @@
                     <div class="hero-visual reveal" aria-label="Original profile artwork and engineering summary">
                         <div class="profile-card">
                             <div class="profile-art">
-                                <img src="{{ $profile->profile_image ? asset('storage/'.$profile->profile_image) : asset('assets/images/My_pic.png') }}" alt="Profile photo of {{ $profile->name }}">
+                                <img src="{{ $profile->profile_image ? asset('storage/'.$profile->profile_image) : asset('assets/images/My_Pic.png') }}" alt="Profile photo of {{ $profile->name }}" width="1024" height="1005" fetchpriority="high" decoding="async">
                             </div>
                             <div class="profile-caption">
                                 <strong>{{ $profile->name }}</strong>
-                                <a class="profile-resume-button" href="{{ route('resume.show') }}" target="_blank" rel="noopener noreferrer">
+                                <a class="profile-resume-button" href="{{ route('resume.show') }}">
                                     View resume
                                     <span class="profile-resume-button-icon" aria-hidden="true">&#8599;</span>
                                 </a>
@@ -95,6 +78,7 @@
                                 </div>
                             @endforeach
                         </div>
+                        <a class="text-link" href="{{ route('about') }}">More about my engineering background</a>
                     </div>
                 </div>
             </section>
@@ -147,7 +131,7 @@
                     </div>
 
                     <div class="section-actions reveal">
-                        <a class="button button-secondary" href="{{ route('projects.index') }}">Show More</a>
+                        <a class="button button-secondary" href="{{ route('projects.index') }}">View all projects</a>
                     </div>
                 </div>
             </section>
@@ -171,29 +155,23 @@
                 </div>
             </section>
 
-            <section class="section-pad" id="thoughts" aria-labelledby="thoughts-title">
+            <section class="section-pad" id="research" aria-labelledby="research-title">
                 <div class="container">
                     <div class="section-heading reveal">
-                        <p class="eyebrow">Engineering thoughts</p>
-                        <h2 id="thoughts-title">Notes on building practical software that survives real production usage.</h2>
+                        <p class="eyebrow">Research</p>
+                        <h2 id="research-title">Responsible AI and culturally grounded evaluation for Bangla language models.</h2>
                     </div>
 
                     <div class="thought-grid">
-                        <article class="thought-card reveal">
-                            <span>6 min read</span>
-                            <h3>How I approach Laravel performance before adding infrastructure</h3>
-                            <p>Start with query shape, indexes, payload size, and cache boundaries before reaching for bigger servers.</p>
-                        </article>
-                        <article class="thought-card reveal">
-                            <span>5 min read</span>
-                            <h3>What makes an API integration maintainable after launch</h3>
-                            <p>Clear contracts, retry behavior, useful logs, and isolated provider code make future changes much cheaper.</p>
-                        </article>
-                        <article class="thought-card reveal">
-                            <span>4 min read</span>
-                            <h3>Designing admin screens for fast operational decisions</h3>
-                            <p>Dense layouts, clean hierarchy, and predictable actions matter more than decorative dashboard surfaces.</p>
-                        </article>
+                        @forelse ($featuredPublications as $publication)
+                            @include('frontend.partials.publication-card', ['publication' => $publication])
+                        @empty
+                            <p class="empty-state">Research records will appear here when published.</p>
+                        @endforelse
+                    </div>
+
+                    <div class="section-actions reveal">
+                        <a class="button button-secondary" href="{{ route('research.index') }}">Explore research</a>
                     </div>
                 </div>
             </section>
@@ -246,8 +224,4 @@
                     </form>
                 </div>
             </section>
-        </main>
-
-        @include('frontend.partials.site-footer')
-    </body>
-</html>
+</x-frontend::layout>

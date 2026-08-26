@@ -29,6 +29,22 @@ class ProjectService
         return $this->activeProjectsQuery()->paginate($perPage);
     }
 
+    public function activeProjectBySlug(string $slug): Project
+    {
+        return $this->activeProjectsQuery()->where('slug', $slug)->firstOrFail();
+    }
+
+    /**
+     * @return Collection<int, Project>
+     */
+    public function relatedProjects(Project $project, int $limit = 3): Collection
+    {
+        return $this->activeProjectsQuery()
+            ->whereKeyNot($project->getKey())
+            ->limit($limit)
+            ->get();
+    }
+
     public function activeProjectCount(): int
     {
         return Project::query()->active()->count();
