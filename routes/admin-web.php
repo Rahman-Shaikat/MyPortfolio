@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->controller(AdminLoginController::class)->group(function (): void {
     Route::get('/', 'redirect')->name('index');
-    Route::get('/login', 'showLoginForm')->name('login');
-    Route::post('/login', 'login')->middleware('throttle:5,1')->name('login.store');
+    Route::get('/login/U1GFG_45vj-ik7BD_VFji_khr0v', 'showLoginForm')->name('login');
+    Route::post('/login/U1GFG_45vj-ik7BD_VFji_khr0v', 'login')->middleware('throttle:5,1')->name('login.store');
     Route::post('/logout', 'logout')->name('logout');
 });
 
