@@ -20,7 +20,7 @@
                 @if ($publication->research_topics)<div class="tag-row">@foreach ($publication->research_topics as $topic)<span>{{ $topic }}</span>@endforeach</div>@endif
                 <div class="detail-actions">
                     @if ($publication->url)<a class="button button-primary" href="{{ $publication->url }}" target="_blank" rel="noopener noreferrer">OpenReview</a>@endif
-                    @if ($publication->reference_url)<a class="button button-secondary" href="{{ $publication->reference_url }}" target="_blank" rel="noopener noreferrer">Google Scholar</a>@endif
+                    {{-- @if ($publication->reference_url)<a class="button button-secondary" href="{{ $publication->reference_url }}" target="_blank" rel="noopener noreferrer">Google Scholar</a>@endif --}}
                 </div>
             </div>
         </div>

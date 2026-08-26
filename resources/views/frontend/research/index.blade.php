@@ -7,7 +7,7 @@
                 <p class="page-lede">Research interests include responsible AI, NLP, benchmark development, LLM evaluation, Bangla language models, social bias, and culturally grounded evaluation.</p>
             </div>
             <div class="research-links reveal">
-                <a class="button button-secondary" href="{{ config('seo.research.scholar_url') }}" target="_blank" rel="noopener noreferrer">Google Scholar</a>
+                {{-- <a class="button button-secondary" href="{{ config('seo.research.scholar_url') }}" target="_blank" rel="noopener noreferrer">Google Scholar</a> --}}
                 <a class="button button-secondary" href="{{ config('seo.research.openreview_url') }}" target="_blank" rel="noopener noreferrer">OpenReview</a>
             </div>
             <div class="research-list">

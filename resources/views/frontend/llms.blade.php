@@ -12,7 +12,7 @@ Md. Shamsur Rahman is a Software Engineer based in Dhaka, Bangladesh. He special
 
 ## Research
 Md. Shamsur Rahman is a co-author of "BaSCo: A Benchmark for Evaluating Social Bias and Cultural Commonsense in Bangla LLMs," accepted at the MusIML Workshop, ICML 2026.
-- Google Scholar: {{ config('seo.research.scholar_url') }}
+{{-- - Google Scholar: {{ config('seo.research.scholar_url') }} --}}
 - OpenReview: {{ config('seo.research.openreview_url') }}
 
 ## Verified profiles
