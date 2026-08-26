@@ -6,6 +6,7 @@
         <meta name="description" content="{{ $profile->seo_description ?: $profile->name.' portfolio' }}">
 
         <title>{{ $profile->name }} Portfolio</title>
+        <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}" sizes="any">
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
@@ -31,9 +32,6 @@
                         <div class="hero-actions" aria-label="Primary calls to action">
                             <a class="button button-primary" href="#projects">View projects</a>
                             <a class="button button-secondary" href="#contact">Start a conversation</a>
-                            @if ($profile->resume)
-                                <a class="button button-secondary" href="{{ asset('storage/'.$profile->resume) }}" target="_blank" rel="noopener noreferrer">View resume</a>
-                            @endif
                         </div>
 
                         <div class="hero-metrics" aria-label="Professional highlights">
@@ -53,7 +51,10 @@
                             </div>
                             <div class="profile-caption">
                                 <strong>{{ $profile->name }}</strong>
-                                <span>{{ $profile->profile_caption }}</span>
+                                <a class="profile-resume-button" href="{{ route('resume.show') }}" target="_blank" rel="noopener noreferrer">
+                                    View resume
+                                    <span class="profile-resume-button-icon" aria-hidden="true">&#8599;</span>
+                                </a>
                             </div>
                         </div>
 

@@ -6,6 +6,7 @@
         <meta name="description" content="Projects by {{ $profile->name }}, including publishing platforms, Laravel applications, eCommerce systems, and content workflows.">
 
         <title>Projects | {{ $profile->name }}</title>
+        <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}" sizes="any">
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>

@@ -62,6 +62,16 @@
                                 @error('location')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
                             <div class="col-md-4">
+                                <label for="facebook_url" class="form-label">Facebook URL</label>
+                                <input id="facebook_url" name="facebook_url" type="url" class="form-control @error('facebook_url') is-invalid @enderror" value="{{ old('facebook_url', $profile->facebook_url ?? '') }}">
+                                @error('facebook_url')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            </div>
+                            <div class="col-md-4">
+                                <label for="instagram_url" class="form-label">Instagram URL</label>
+                                <input id="instagram_url" name="instagram_url" type="url" class="form-control @error('instagram_url') is-invalid @enderror" value="{{ old('instagram_url', $profile->instagram_url ?? '') }}">
+                                @error('instagram_url')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            </div>
+                            <div class="col-md-4">
                                 <label for="github_url" class="form-label">GitHub URL</label>
                                 <input id="github_url" name="github_url" type="url" class="form-control @error('github_url') is-invalid @enderror" value="{{ old('github_url', $profile->github_url ?? '') }}">
                                 @error('github_url')<div class="invalid-feedback">{{ $message }}</div>@enderror
@@ -70,6 +80,11 @@
                                 <label for="linkedin_url" class="form-label">LinkedIn URL</label>
                                 <input id="linkedin_url" name="linkedin_url" type="url" class="form-control @error('linkedin_url') is-invalid @enderror" value="{{ old('linkedin_url', $profile->linkedin_url ?? '') }}">
                                 @error('linkedin_url')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            </div>
+                            <div class="col-md-4">
+                                <label for="medium_url" class="form-label">Medium URL</label>
+                                <input id="medium_url" name="medium_url" type="url" class="form-control @error('medium_url') is-invalid @enderror" value="{{ old('medium_url', $profile->medium_url ?? '') }}">
+                                @error('medium_url')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
                             <div class="col-md-4">
                                 <label for="x_url" class="form-label">X URL</label>

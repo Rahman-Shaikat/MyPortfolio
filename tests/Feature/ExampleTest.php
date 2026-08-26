@@ -12,6 +12,7 @@ test('the application returns a successful response', function () {
     $response = $this->get('/');
 
     $response->assertSuccessful()
+        ->assertSee(asset('assets/images/favicon.ico'), false)
         ->assertSee('bdnews24.com')
         ->assertSee('Sanitation Knowledge Repository')
         ->assertSee('Jhingephul Publication')

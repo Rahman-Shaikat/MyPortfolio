@@ -1,3 +1,18 @@
+@import '@fortawesome/fontawesome-free/css/brands.min.css';
+
+.fa-brands {
+    display: inline-block;
+    font-family: var(--fa-family-brands);
+    font-style: normal;
+    font-variant: normal;
+    line-height: 1;
+    text-rendering: auto;
+}
+
+.fa-brands::before {
+    content: var(--fa);
+}
+
 :root {
     --bg: #080808;
     --surface: #12110f;
@@ -542,11 +557,50 @@ h3 {
     white-space: nowrap;
 }
 
-.profile-caption span {
-    min-width: 0;
-    color: var(--muted);
-    font-size: 0.94rem;
-    text-align: right;
+.profile-resume-button {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 10px;
+    min-height: 40px;
+    border: 1px solid rgba(215, 255, 107, 0.44);
+    border-radius: 6px;
+    background: rgba(215, 255, 107, 0.08);
+    color: var(--text);
+    padding: 7px 8px 7px 13px;
+    font-size: 0.8rem;
+    font-weight: 850;
+    white-space: nowrap;
+    transition: border-color 180ms ease, background 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.profile-resume-button:hover,
+.profile-resume-button:focus-visible {
+    border-color: var(--lime);
+    background: rgba(215, 255, 107, 0.14);
+    color: var(--lime);
+    outline: none;
+    transform: translateY(-2px);
+}
+
+.profile-resume-button-icon {
+    display: grid;
+    width: 25px;
+    height: 25px;
+    flex: 0 0 25px;
+    place-items: center;
+    border-radius: 4px;
+    background: var(--lime);
+    color: #080808;
+    font-size: 0.92rem;
+    line-height: 1;
+    transition: background 180ms ease, transform 180ms ease;
+}
+
+.profile-resume-button:hover .profile-resume-button-icon,
+.profile-resume-button:focus-visible .profile-resume-button-icon {
+    background: var(--paper);
+    transform: translate(1px, -1px);
 }
 
 .system-panel {
@@ -1116,12 +1170,45 @@ h3 {
 }
 
 .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
     padding: 26px 0;
-    text-align: center;
 }
 
 .footer-inner p {
     margin-bottom: 0;
+}
+
+.footer-socials {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.footer-social-link {
+    display: grid;
+    width: 40px;
+    height: 40px;
+    flex: 0 0 40px;
+    place-items: center;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.035);
+    color: var(--paper-soft);
+    cursor: pointer;
+    font-size: 1rem;
+    transition: border-color 180ms ease, background 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.footer-social-link:hover,
+.footer-social-link:focus-visible {
+    border-color: var(--accent);
+    background: rgba(242, 90, 29, 0.12);
+    color: var(--accent);
+    outline: none;
+    transform: translateY(-2px);
 }
 
 .back-to-top {
@@ -1390,12 +1477,36 @@ h3 {
     }
 
     .profile-caption {
-        align-items: flex-start;
-        flex-direction: column;
+        gap: 10px;
+        padding: 14px;
     }
 
-    .profile-caption span {
-        text-align: left;
+    .profile-caption strong {
+        font-size: 1rem;
+    }
+
+    .profile-resume-button {
+        gap: 7px;
+        min-height: 38px;
+        padding: 6px 7px 6px 10px;
+        font-size: 0.76rem;
+    }
+
+    .footer-inner {
+        justify-content: center;
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+    }
+
+    .footer-socials {
+        gap: 8px;
+    }
+
+    .footer-social-link {
+        width: 38px;
+        height: 38px;
+        flex-basis: 38px;
     }
 
     .service-card p {

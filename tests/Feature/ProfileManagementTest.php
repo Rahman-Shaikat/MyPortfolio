@@ -52,12 +52,13 @@ test('profile validation rejects invalid media and contact links', function () {
         ->from(route('admin.profiles.create'))
         ->post(route('admin.profiles.store'), profilePayload([
             'email' => 'invalid-email',
+            'facebook_url' => 'not-a-url',
             'github_url' => 'not-a-url',
             'profile_image' => UploadedFile::fake()->create('profile.pdf', 100, 'application/pdf'),
             'resume' => UploadedFile::fake()->image('resume.jpg'),
         ]))
         ->assertRedirect(route('admin.profiles.create'))
-        ->assertSessionHasErrors(['email', 'github_url', 'profile_image', 'resume']);
+        ->assertSessionHasErrors(['email', 'facebook_url', 'github_url', 'profile_image', 'resume']);
 });
 
 test('an authenticated admin can update profile content and replace media', function () {
@@ -124,6 +125,12 @@ test('profile content is rendered dynamically on the frontend', function () {
         'hero_description' => 'Dynamic hero content from the database.',
         'contact_title' => 'Dynamic contact heading',
         'skills' => ['Laravel', 'Redis'],
+        'profile_caption' => 'This caption should not be rendered.',
+        'facebook_url' => 'https://facebook.com/example',
+        'instagram_url' => 'https://instagram.com/example',
+        'github_url' => 'https://github.com/example',
+        'linkedin_url' => 'https://linkedin.com/in/example',
+        'medium_url' => 'https://medium.com/@example',
         'resume' => 'profiles/resumes/dynamic-resume.pdf',
     ]);
 
@@ -135,7 +142,43 @@ test('profile content is rendered dynamically on the frontend', function () {
         ->assertSee('Dynamic hero content from the database.')
         ->assertSee('Dynamic contact heading')
         ->assertSee('Redis')
-        ->assertSee(asset('storage/profiles/resumes/dynamic-resume.pdf'), false);
+        ->assertSee('View resume')
+        ->assertSee(route('resume.show'), false)
+        ->assertSee('https://facebook.com/example', false)
+        ->assertSee('https://instagram.com/example', false)
+        ->assertSee('https://github.com/example', false)
+        ->assertSee('https://linkedin.com/in/example', false)
+        ->assertSee('https://medium.com/@example', false)
+        ->assertSee('fa-facebook-f', false)
+        ->assertSee('fa-instagram', false)
+        ->assertSee('fa-github', false)
+        ->assertSee('fa-linkedin-in', false)
+        ->assertSee('fa-medium', false)
+        ->assertDontSee('This caption should not be rendered.');
+});
+
+test('the public resume endpoint serves an uploaded resume', function () {
+    Storage::fake('public');
+
+    $resume = UploadedFile::fake()->create('resume.pdf', 100, 'application/pdf')->store('profiles/resumes', 'public');
+    Profile::factory()->create(['resume' => $resume]);
+
+    $this->get(route('resume.show'))
+        ->assertSuccessful()
+        ->assertHeader('content-disposition', 'inline; filename="Shamsur-Rahman-Resume.pdf"');
+});
+
+test('footer social icons remain clickable when personal links are not configured', function () {
+    Profile::factory()->create();
+
+    $this->get(route('home'))
+        ->assertSuccessful()
+        ->assertSee('href="https://www.facebook.com/"', false)
+        ->assertSee('href="https://www.instagram.com/"', false)
+        ->assertSee('href="https://github.com/"', false)
+        ->assertSee('href="https://www.linkedin.com/"', false)
+        ->assertSee('href="https://medium.com/"', false)
+        ->assertDontSee('footer-social-link is-disabled', false);
 });
 
 test('deleting the profile removes its uploaded media', function () {
@@ -202,8 +245,11 @@ function profilePayload(array $overrides = []): array
         'email' => 'hello@example.com',
         'phone' => '+1 000 000 0000',
         'location' => 'Remote',
+        'facebook_url' => 'https://facebook.com/example',
+        'instagram_url' => 'https://instagram.com/example',
         'github_url' => 'https://github.com/example',
         'linkedin_url' => 'https://linkedin.com/in/example',
+        'medium_url' => 'https://medium.com/@example',
         'x_url' => 'https://x.com/example',
     ], $overrides);
 }
