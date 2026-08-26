@@ -65,9 +65,317 @@
   object-fit: cover;
 }
 
+.admin-page-heading {
+  min-height: 52px;
+}
+
+.admin-project-search-input {
+  width: min(100%, 420px);
+}
+
+.admin-project-name-cell {
+  min-width: 300px;
+  max-width: 440px;
+}
+
+.admin-project-index-icon,
+.admin-empty-icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: var(--ds-primary-bg-subtle);
+  color: var(--ds-primary-text-emphasis);
+  font-size: 1.2rem;
+}
+
+.admin-project-index-thumbnail {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--ds-border-color);
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.admin-preview-upload {
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  width: 100%;
+  height: clamp(240px, 32vw, 360px);
+  border: 1px dashed var(--ds-border-color);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--ds-primary) 5%, transparent), transparent 48%),
+    var(--ds-body-bg);
+  cursor: pointer;
+  outline: none;
+  transition: border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
+}
+
+.admin-preview-upload:hover,
+.admin-preview-upload:focus-visible,
+.admin-preview-upload.is-dragging {
+  border-color: var(--ds-primary);
+  background-color: var(--ds-primary-bg-subtle);
+}
+
+.admin-preview-upload:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ds-primary) 22%, transparent);
+}
+
+.admin-preview-upload.is-dragging {
+  box-shadow: inset 0 0 0 2px var(--ds-primary);
+}
+
+.admin-preview-upload.is-invalid {
+  border-color: var(--ds-danger);
+}
+
+.admin-preview-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.admin-preview-placeholder {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 2rem;
+  color: var(--ds-secondary-color);
+  text-align: center;
+}
+
+.admin-preview-placeholder strong {
+  color: var(--ds-heading-color);
+  font-size: 1rem;
+}
+
+.admin-preview-placeholder-icon {
+  display: grid;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 0.4rem;
+  place-items: center;
+  border: 1px solid var(--ds-border-color);
+  border-radius: 50%;
+  background: var(--ds-body-bg);
+  color: var(--ds-primary);
+  font-size: 1.5rem;
+}
+
+.admin-preview-toolbar {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  background: linear-gradient(transparent, rgba(8, 15, 25, 0.94));
+  color: #fff;
+}
+
+.admin-preview-file-meta {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.admin-preview-file-meta strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-preview-file-meta span {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.75rem;
+}
+
+.admin-preview-image[hidden],
+.admin-preview-placeholder[hidden],
+.admin-preview-toolbar[hidden],
+[data-restore-preview-image][hidden] {
+  display: none;
+}
+
+.admin-file-upload {
+  position: relative;
+  display: grid;
+  min-height: 190px;
+  place-items: center;
+  border: 1px dashed var(--ds-border-color);
+  border-radius: 8px;
+  background: var(--ds-body-bg);
+  cursor: pointer;
+  outline: none;
+  transition: border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
+}
+
+.admin-file-upload:hover,
+.admin-file-upload:focus-visible,
+.admin-file-upload.is-dragging {
+  border-color: var(--ds-primary);
+  background-color: var(--ds-primary-bg-subtle);
+}
+
+.admin-file-upload:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ds-primary) 22%, transparent);
+}
+
+.admin-file-upload.is-invalid {
+  border-color: var(--ds-danger);
+}
+
+.admin-file-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 1.5rem;
+  color: var(--ds-secondary-color);
+  text-align: center;
+}
+
+.admin-file-placeholder strong {
+  margin-top: 0.5rem;
+  color: var(--ds-heading-color);
+}
+
+.admin-file-current {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+}
+
+.admin-file-current-icon {
+  display: grid;
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border-radius: 8px;
+  background: var(--ds-danger-bg-subtle);
+  color: var(--ds-danger);
+  font-size: 1.35rem;
+}
+
+.admin-file-placeholder[hidden],
+.admin-file-current[hidden],
+[data-restore-file][hidden],
+[data-open-file][hidden] {
+  display: none;
+}
+
+.admin-repeater-items {
+  display: grid;
+  gap: 1rem;
+}
+
+.admin-repeater-item {
+  position: relative;
+  padding: 1rem;
+  border: 1px solid var(--ds-border-color);
+  border-radius: 8px;
+  background: var(--ds-body-bg);
+}
+
+.admin-repeater-remove {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 1;
+}
+
+.admin-profile-media {
+  position: sticky;
+  top: 100px;
+}
+
+.admin-profile-avatar {
+  display: block;
+  width: 132px;
+  height: 132px;
+  border: 1px solid var(--ds-border-color);
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.admin-empty-icon {
+  width: 54px;
+  height: 54px;
+  font-size: 1.5rem;
+}
+
+.admin-tech-list {
+  min-width: 180px;
+}
+
+.admin-table-actions {
+  min-width: 92px;
+}
+
+.admin-project-settings {
+  position: sticky;
+  top: 100px;
+}
+
+.admin-pagination-shell .pagination {
+  margin-bottom: 0;
+}
+
+.admin-project-table td,
+.admin-project-table th {
+  padding-right: 1.25rem;
+  padding-left: 1.25rem;
+}
+
 @media (max-width: 990px) {
   html.expanded #content,
   html.collapsed #content {
     margin-left: 0;
+  }
+
+  .admin-project-settings {
+    position: static;
+  }
+
+  .admin-profile-media {
+    position: static;
+  }
+}
+
+@media (max-width: 575px) {
+  .admin-project-search > * {
+    flex: 1 1 auto;
+  }
+
+  .admin-project-search-input {
+    flex-basis: 100%;
+  }
+
+  .admin-preview-placeholder {
+    padding: 1.25rem;
+  }
+
+  .admin-preview-toolbar {
+    padding: 0.75rem;
   }
 }
