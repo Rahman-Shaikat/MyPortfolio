@@ -66,10 +66,8 @@ test('inactive projects and publications are not publicly accessible', function 
     $this->get(route('research.show', $publication->slug))->assertNotFound();
 });
 
-test('the about page identifies the person as its main entity', function () {
-    $this->get(route('about'))
-        ->assertSuccessful()
-        ->assertSee('"mainEntity":{"@id":"https://portfolio.example.com/#person"}', false);
+test('the standalone about page is not available', function () {
+    $this->get('/about')->assertNotFound();
 });
 
 test('research publication pages expose scholarly article schema and source links', function () {

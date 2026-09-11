@@ -12,11 +12,11 @@
                 </div>
             </div>
             <form class="contact-form reveal" action="{{ $profile->email ? 'mailto:'.$profile->email : '#contact-page-title' }}" method="post" enctype="text/plain" data-contact-form>
-                <label><span>Name</span><input type="text" name="name" autocomplete="name" required></label>
-                <label><span>Email</span><input type="email" name="email" autocomplete="email" required></label>
-                <label><span>Project type</span><select name="project_type" required><option value="">Select one</option><option>Laravel application</option><option>API or integration</option><option>E-commerce system</option><option>Maintenance or optimization</option></select></label>
-                <label><span>Message</span><textarea name="message" rows="6" required></textarea></label>
-                <button class="button button-primary" type="submit">Send inquiry</button>
+                <label><span class="sr-only">Name</span><input type="text" name="name" placeholder="Your name" autocomplete="name" required></label>
+                <label><span class="sr-only">Email</span><input type="email" name="email" placeholder="you@example.com" autocomplete="email" required></label>
+                <label><span class="sr-only">Project type</span><select name="project_type" required><option value="" disabled selected>Project type</option><option>Laravel application</option><option>API or integration</option><option>E-commerce system</option><option>Maintenance or optimization</option></select></label>
+                <label><span class="sr-only">Message</span><textarea name="message" rows="3" placeholder="Tell me about your project." required></textarea></label>
+                <button class="button contact-submit" type="submit">Send inquiry <span aria-hidden="true">&#8599;</span></button>
                 <p class="form-note" data-form-note>Form opens your email client.</p>
             </form>
         </div>

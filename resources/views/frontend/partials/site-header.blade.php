@@ -19,13 +19,16 @@
 
         <div class="nav-menu" id="primary-menu" data-menu>
             <a class="nav-link" href="{{ $sectionUrl('home') }}">Home</a>
-            <a class="nav-link" href="{{ $sectionUrl('skills') }}">Skills</a>
-            <a class="nav-link" href="{{ $sectionUrl('services') }}">Services</a>
-            <a class="nav-link {{ request()->routeIs('projects.*') ? 'is-active' : '' }}" href="{{ route('projects.index') }}">Projects</a>
+            <a class="nav-link" href="{{ $sectionUrl('about') }}">About</a>
             <a class="nav-link" href="{{ $sectionUrl('experience') }}">Experience</a>
+            <a class="nav-link" href="{{ $sectionUrl('skills') }}">Skills</a>
+            <a class="nav-link {{ request()->routeIs('projects.*') ? 'is-active' : '' }}" href="{{ $sectionUrl('projects') }}">Projects</a>
             <a class="nav-link" href="{{ $sectionUrl('research') }}">Research</a>
-            <a class="nav-link {{ request()->routeIs('about') ? 'is-active' : '' }}" href="{{ route('about') }}">About</a>
-            <a class="nav-link nav-link-cta {{ request()->routeIs('contact') ? 'is-active' : '' }}" href="{{ route('contact') }}">Contact</a>
+            <a class="nav-link" href="{{ $sectionUrl('services') }}">Services</a>
+            <a class="nav-link nav-link-cta {{ request()->routeIs('contact') ? 'is-active' : '' }}" href="{{ route('contact') }}">
+                Let's talk
+                <span aria-hidden="true">&#8599;</span>
+            </a>
         </div>
     </nav>
 </header>

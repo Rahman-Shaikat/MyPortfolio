@@ -1,4 +1,14 @@
+import 'wowjs/css/libs/animate.css';
+import { initContactPrompts } from './contact-prompts';
+
 document.documentElement.classList.add('js');
+
+const experienceTree = document.querySelector('[data-experience-tree]');
+if (experienceTree) {
+    import('./experience-tree').then(({ initExperienceTree }) => {
+        initExperienceTree(experienceTree);
+    }).catch(() => {});
+}
 
 const header = document.querySelector('[data-header]');
 const menu = document.querySelector('[data-menu]');
@@ -9,8 +19,45 @@ const revealItems = Array.from(document.querySelectorAll('.reveal'));
 const heroRevealItems = Array.from(document.querySelectorAll('.hero .reveal'));
 const backToTop = document.querySelector('[data-back-to-top]');
 const contactForm = document.querySelector('[data-contact-form]');
+if (contactForm) initContactPrompts(contactForm);
 const formNote = document.querySelector('[data-form-note]');
 const researchVideo = document.querySelector('[data-research-video]');
+const wowItems = document.querySelectorAll('.wow');
+const skillCloud = document.querySelector('.skill-cloud');
+
+if (skillCloud) {
+    let skillsVisible = false;
+    const updateSkillsMotion = () => {
+        skillCloud.classList.toggle('is-floating', skillsVisible && !document.hidden);
+    };
+    if ('IntersectionObserver' in window) {
+        const skillsObserver = new IntersectionObserver(([entry]) => {
+            skillsVisible = entry.isIntersecting;
+            updateSkillsMotion();
+        });
+        skillsObserver.observe(skillCloud);
+    } else {
+        skillsVisible = true;
+        updateSkillsMotion();
+    }
+    document.addEventListener('visibilitychange', updateSkillsMotion);
+}
+
+if (wowItems.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    import('wowjs').then((module) => {
+        const Wow = module.WOW ?? module.default?.WOW;
+
+        if (Wow) {
+            new Wow({
+                boxClass: 'wow',
+                animateClass: 'animated',
+                offset: 48,
+                mobile: true,
+                live: false,
+            }).init();
+        }
+    }).catch(() => {});
+}
 
 const closeMenu = () => {
     if (!menu || !menuToggle) {
@@ -105,6 +152,9 @@ contactForm?.addEventListener('submit', () => {
 });
 
 if (researchVideo) {
+    import('./research-video').then(({ initResearchVideo }) => {
+        initResearchVideo(researchVideo);
+    }).catch(() => {});
     researchVideo.muted = true;
     let isVideoVisible = false;
 

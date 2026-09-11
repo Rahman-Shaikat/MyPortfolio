@@ -4,10 +4,10 @@ Md. Shamsur Rahman is a Software Engineer based in Dhaka, Bangladesh. He special
 
 ## Primary pages
 - Home: {{ route('home') }}
-- About: {{ route('about') }}
+- About: {{ route('home') }}#about
 - Projects: {{ route('projects.index') }}
 - Research: {{ route('research.index') }}
-- Resume: {{ route('resume.show') }}
+- Resume PDF: {{ route('resume.file') }}
 - Contact: {{ route('contact') }}
 
 ## Research

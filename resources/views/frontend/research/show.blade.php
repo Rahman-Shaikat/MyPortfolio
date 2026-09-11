@@ -7,7 +7,7 @@
                 @if ($publication->authors)
                     <p class="publication-authors">
                         @foreach ($publication->authors as $author)
-                            @if ($author === config('seo.person.name'))<a href="{{ route('about') }}">{{ $author }}</a>@else{{ $author }}@endif{{ $loop->last ? '' : ', ' }}
+                            @if ($author === config('seo.person.name'))<a href="{{ route('home') }}#about">{{ $author }}</a>@else{{ $author }}@endif{{ $loop->last ? '' : ', ' }}
                         @endforeach
                     </p>
                 @endif

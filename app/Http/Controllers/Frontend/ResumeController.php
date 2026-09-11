@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Services\ProfileService;
-use App\Services\SeoService;
-use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
@@ -13,16 +11,7 @@ class ResumeController extends Controller
 {
     public function __construct(
         private readonly ProfileService $profileService,
-        private readonly SeoService $seoService,
     ) {}
-
-    public function show(): View
-    {
-        return view('frontend.resume', [
-            'profile' => $this->profileService->currentProfile(),
-            'seo' => $this->seoService->resume(),
-        ]);
-    }
 
     public function file(): BinaryFileResponse
     {

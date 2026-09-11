@@ -28,24 +28,6 @@ class SeoService
     /**
      * @return array<string, mixed>
      */
-    public function about(Profile $profile): array
-    {
-        $title = 'About Md. Shamsur Rahman | Software Engineer & Laravel Developer';
-        $description = 'Learn about Md. Shamsur Rahman, a Dhaka-based Software Engineer with 3+ years of Laravel and PHP backend experience across APIs, databases, CMS, e-commerce, production support, and AI research.';
-        $canonical = route('about');
-
-        $profilePage = $this->webPageEntity($title, $description, $canonical, 'ProfilePage');
-        $profilePage['mainEntity'] = ['@id' => $this->personId()];
-
-        return $this->page($title, $description, $canonical, $this->graph([
-            $this->personEntity($profile),
-            $profilePage,
-        ]));
-    }
-
-    /**
-     * @return array<string, mixed>
-     */
     public function projects(Profile $profile, int $page = 1): array
     {
         $suffix = $page > 1 ? " - Page {$page}" : '';
@@ -141,20 +123,6 @@ class SeoService
             $this->webPageEntity($title, $description, $canonical, 'WebPage'),
             $article,
         ]), $image, $publication->image ? null : [1200, 630], 'article');
-    }
-
-    /**
-     * @return array<string, mixed>
-     */
-    public function resume(): array
-    {
-        $title = 'Resume | Md. Shamsur Rahman - Software Engineer';
-        $description = 'Review the resume of Md. Shamsur Rahman, a Software Engineer specializing in Laravel and PHP backend development, REST APIs, MySQL, Redis, Docker and production web systems.';
-        $canonical = route('resume.show');
-
-        return $this->page($title, $description, $canonical, $this->graph([
-            $this->webPageEntity($title, $description, $canonical, 'ProfilePage'),
-        ]));
     }
 
     /**

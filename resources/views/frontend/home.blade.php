@@ -34,7 +34,7 @@
                             </div>
                             <div class="profile-caption">
                                 <strong>{{ $profile->name }}</strong>
-                                <a class="profile-resume-button" href="{{ route('resume.show') }}">
+                                <a class="profile-resume-button" href="{{ route('resume.file') }}" target="_blank"  rel="noopener noreferrer">
                                     View resume
                                     <span class="profile-resume-button-icon" aria-hidden="true">&#8599;</span>
                                 </a>
@@ -70,22 +70,31 @@
                     <div class="about-content reveal">
                         <p>{{ $profile->about_paragraph_one }}</p>
                         <p>{{ $profile->about_paragraph_two }}</p>
-                        <div class="about-grid">
-                            @foreach ($profile->about_highlights ?? [] as $highlight)
-                                <div>
-                                    <strong>{{ $highlight['title'] }}</strong>
-                                    <span>{{ $highlight['description'] }}</span>
-                                </div>
-                            @endforeach
+                        <div class="education-grid">
+                            <article class="wow fadeInUp" data-wow-delay="0s" data-wow-duration="0.65s">
+                                <span class="education-year">2023</span>
+                                <h3>Bachelor of Computer Science and Engineering (BCSE)</h3>
+                                <p>IUBAT - International University of Business Agriculture and Technology</p>
+                            </article>
+                            <article class="wow fadeInUp" data-wow-delay="0.1s" data-wow-duration="0.65s">
+                                <span class="education-year">2016</span>
+                                <h3>Higher Secondary School Certificate (HSC)</h3>
+                                <p>Shaheed Ramiz Uddin Cantonment College</p>
+                            </article>
+                            <article class="wow fadeInUp" data-wow-delay="0.2s" data-wow-duration="0.65s">
+                                <span class="education-year">2014</span>
+                                <h3>Secondary School Certificate (SSC)</h3>
+                                <p>Civil Aviation High School Tejgaon</p>
+                            </article>
                         </div>
-                        <a class="text-link" href="{{ route('about') }}">More about my engineering background</a>
                     </div>
                 </div>
             </section>
 
             <section class="section-pad" id="experience" aria-labelledby="experience-title">
                 <div class="container split-section">
-                    <div class="timeline reveal">
+                    <div class="timeline experience-tree" data-experience-tree>
+                        <div class="experience-tree-scene" aria-hidden="true"></div>
                         @foreach ($profile->experiences ?? [] as $experience)
                             <article>
                                 <span>{{ $experience['period'] }}</span>
@@ -96,7 +105,7 @@
                     </div>
 
                     <div class="section-heading reveal">
-                        <p class="eyebrow">Experience</p>
+                        <p class="eyebrow">Work Experience</p>
                         <h2 id="experience-title">{{ $profile->experience_title }}</h2>
                     </div>
                 </div>
@@ -109,7 +118,7 @@
                         <h2 id="skills-title">{{ $profile->skills_title }}</h2>
                     </div>
 
-                    <div class="skill-grid reveal">
+                    <div class="skill-grid skill-cloud reveal">
                         @foreach ($profile->skills ?? [] as $skill)
                             <span>{{ $skill }}</span>
                         @endforeach
@@ -173,7 +182,7 @@
 
                         <figure class="research-video" aria-hidden="true">
                             <video data-research-video autoplay muted loop playsinline disablepictureinpicture disableremoteplayback preload="metadata" tabindex="-1">
-                                <source src="{{ asset('assets/videos/3D-1.mp4') }}" type="video/mp4">
+                                <source src="{{ asset('assets/videos/3D-2.mp4') }}" type="video/mp4">
                             </video>
                         </figure>
                     </div>
@@ -205,17 +214,17 @@
 
                     <form class="contact-form reveal" action="{{ $profile->email ? 'mailto:'.$profile->email : '#contact' }}" method="post" enctype="text/plain" data-contact-form>
                         <label>
-                            <span>Name</span>
+                            <span class="sr-only">Name</span>
                             <input type="text" name="name" placeholder="Your name" autocomplete="name" required>
                         </label>
                         <label>
-                            <span>Email</span>
+                            <span class="sr-only">Email</span>
                             <input type="email" name="email" placeholder="you@example.com" autocomplete="email" required>
                         </label>
                         <label>
-                            <span>Project type</span>
+                            <span class="sr-only">Project type</span>
                             <select name="project_type" required>
-                                <option value="">Select one</option>
+                                <option value="" disabled selected>Project type</option>
                                 <option>Laravel application</option>
                                 <option>API or integration</option>
                                 <option>eCommerce</option>
@@ -223,10 +232,10 @@
                             </select>
                         </label>
                         <label>
-                            <span>Message</span>
-                            <textarea name="message" rows="5" placeholder="Tell me what you want to build or improve." required></textarea>
+                            <span class="sr-only">Message</span>
+                            <textarea name="message" rows="3" placeholder="Tell me about your project." required></textarea>
                         </label>
-                        <button class="button button-primary" type="submit">Send inquiry</button>
+                        <button class="button contact-submit" type="submit">Send inquiry <span aria-hidden="true">&#8599;</span></button>
                         <p class="form-note" data-form-note>Form opens your email client.</p>
                     </form>
                 </div>

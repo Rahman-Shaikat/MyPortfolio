@@ -143,7 +143,7 @@ test('profile content is rendered dynamically on the frontend', function () {
         ->assertSee('Dynamic contact heading')
         ->assertSee('Redis')
         ->assertSee('View resume')
-        ->assertSee(route('resume.show'), false)
+        ->assertSee('href="'.route('resume.file').'"', false)
         ->assertSee('https://facebook.com/example', false)
         ->assertSee('https://instagram.com/example', false)
         ->assertSee('https://github.com/example', false)
@@ -166,6 +166,8 @@ test('the public resume endpoint serves an uploaded resume', function () {
     $this->get(route('resume.file'))
         ->assertSuccessful()
         ->assertHeader('content-disposition', 'inline; filename="Shamsur-Rahman-Resume.pdf"');
+
+    $this->get('/resume')->assertNotFound();
 });
 
 test('footer social icons remain clickable when personal links are not configured', function () {
