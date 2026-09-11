@@ -19,7 +19,7 @@ class EnforceCanonicalUrl
             return $next($request);
         }
 
-        $canonicalRoot = rtrim((string) config('app.url'), '/');
+        $canonicalRoot = rtrim((string) config('seo.url'), '/');
         $requestRoot = $request->getSchemeAndHttpHost();
 
         if ($canonicalRoot !== $requestRoot) {

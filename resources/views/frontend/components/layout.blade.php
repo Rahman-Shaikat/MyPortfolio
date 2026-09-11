@@ -23,7 +23,7 @@
             :structured-data="$seo['structuredData'] ?? null"
         />
 
-        <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}" sizes="any">
+        <x-frontend::favicons />
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body>

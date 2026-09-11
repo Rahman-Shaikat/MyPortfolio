@@ -68,6 +68,7 @@
                         <h2 id="about-title">{{ $profile->about_title }}</h2>
                     </div>
                     <div class="about-content reveal">
+                        <p>{{ config('seo.person.introduction') }}</p>
                         <p>{{ $profile->about_paragraph_one }}</p>
                         <p>{{ $profile->about_paragraph_two }}</p>
                         <div class="education-grid">
@@ -213,9 +214,10 @@
                     </div>
 
                     <form class="contact-form reveal" action="{{ $profile->email ? 'mailto:'.$profile->email : '#contact' }}" method="post" enctype="text/plain" data-contact-form>
-                        <label>
+                        <label class="contact-name">
                             <span class="sr-only">Name</span>
                             <input type="text" name="name" placeholder="Your name" autocomplete="name" required>
+                            <span class="name-placeholder" data-text="Your name" aria-hidden="true"></span>
                         </label>
                         <label>
                             <span class="sr-only">Email</span>
@@ -235,7 +237,7 @@
                             <span class="sr-only">Message</span>
                             <textarea name="message" rows="3" placeholder="Tell me about your project." required></textarea>
                         </label>
-                        <button class="button contact-submit" type="submit">Send inquiry <span aria-hidden="true">&#8599;</span></button>
+                        <button class="button contact-submit" type="submit">Send inquiry</button>
                         <p class="form-note" data-form-note>Form opens your email client.</p>
                     </form>
                 </div>

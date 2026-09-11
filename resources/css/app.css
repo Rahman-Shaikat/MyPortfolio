@@ -217,29 +217,128 @@ textarea:focus-visible {
     transform: translate(50%, 0);
 }
 
-.nav-link-cta {
+.site-header .nav-link-cta {
+    --suede-x: 50%;
+    --suede-y: 30%;
+    --suede-tilt-x: 0deg;
+    --suede-tilt-y: 0deg;
+    isolation: isolate;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
-    min-height: 42px;
-    border: 1px solid rgba(167, 232, 206, 0.55);
-    border-radius: 999px;
-    color: var(--accent);
-    padding: 9px 15px;
+    min-height: 44px;
+    min-width: 116px;
+    border: 0;
+    border-radius: 18px;
+    background: transparent;
+    color: #fff;
+    text-shadow: 0 1px 3px rgba(16, 23, 21, 0.65);
+    padding: 11px 18px;
+    font-weight: 650;
+    white-space: nowrap;
     opacity: 1;
+    transform: perspective(500px) rotateX(var(--suede-tilt-x)) rotateY(var(--suede-tilt-y));
+    transition: transform 550ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.nav-link-cta:hover,
-.nav-link-cta.is-active {
-    border-color: var(--accent);
-    background: var(--accent-soft);
-    color: var(--accent);
+.site-header .nav-link-cta::before,
+.site-header .nav-link-cta::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    transition: box-shadow 550ms ease, opacity 400ms ease;
+}
+
+.site-header .nav-link-cta::before {
+    z-index: -2;
+    background:
+        radial-gradient(ellipse at var(--suede-x) var(--suede-y), rgba(243, 245, 239, 0.4), transparent 75%),
+        linear-gradient(155deg, var(--accent), var(--accent-strong));
+    box-shadow: inset 0 2px 3px rgba(243, 245, 239, 0.6),
+        inset 2px 0 5px rgba(243, 245, 239, 0.22),
+        inset 0 -4px 7px rgba(16, 23, 21, 0.3),
+        0 3px 2px rgba(0, 0, 0, 0.2), 0 6px 14px rgba(0, 0, 0, 0.25);
+}
+
+.site-header .nav-link-cta::after {
+    z-index: -1;
+    background: url('../images/suede-grain.svg') repeat;
+    background-size: 100px 100px;
+    mix-blend-mode: soft-light;
+    opacity: 0.78;
+}
+
+.site-header .nav-link-cta:hover,
+.site-header .nav-link-cta:focus-visible,
+.site-header .nav-link-cta.is-active {
+    background: transparent;
+    color: #fff;
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .site-header .nav-link-cta:hover {
+        transform: perspective(500px) translateY(-2px) rotateX(var(--suede-tilt-x)) rotateY(var(--suede-tilt-y)) scale(1.055, 1.1);
+    }
+    .site-header .nav-link-cta:hover::before,
+    .site-header .nav-link-cta:hover::after {
+        animation: suede-breathe 2.8s ease-in-out infinite;
+    }
+}
+
+.site-header .nav-link-cta:hover::before,
+.site-header .nav-link-cta:focus-visible::before {
+    box-shadow: inset 0 3px 6px rgba(243, 245, 239, 0.65),
+        inset 3px 0 8px rgba(243, 245, 239, 0.3),
+        inset 0 -6px 9px rgba(16, 23, 21, 0.28),
+        0 5px 3px rgba(0, 0, 0, 0.15), 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.site-header .nav-link-cta:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 6px;
+}
+
+.site-header .nav-link-cta:active {
+    transform: scale(0.98, 0.94);
+    transition-duration: 120ms;
+}
+
+.site-header .nav-link-cta:active::before,
+.site-header .nav-link-cta:active::after { animation: none; }
+
+@keyframes suede-breathe {
+    0%, 100% { border-radius: 18px; transform: scale(1); }
+    50% { border-radius: 21px 18px 20px 17px; transform: scale(1.012, 1.025); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .site-header .nav-link-cta { transform: none; }
 }
 
 .nav-link-cta span {
     font-size: 1rem;
     line-height: 1;
     transition: transform 200ms ease;
+}
+
+.site-header .nav-link-cta.has-fabric-surface,
+.site-header .nav-link-cta.has-fabric-surface:hover,
+.site-header .nav-link-cta.has-fabric-surface:active {
+    transform: none;
+}
+.site-header .nav-link-cta.has-fabric-surface::before,
+.site-header .nav-link-cta.has-fabric-surface::after { display: none; }
+.fabric-button-canvas {
+    position: absolute;
+    inset: -14px;
+    width: calc(100% + 28px);
+    height: calc(100% + 28px);
+    z-index: -1;
+    pointer-events: none;
+    filter: drop-shadow(0 3px 2px rgba(0, 0, 0, 0.35));
 }
 
 .nav-link-cta:hover span,
@@ -1465,22 +1564,64 @@ h3 {
     justify-self: start;
     background: transparent;
     color: var(--accent);
-    border: 0;
-    border-bottom: 1px solid var(--accent);
-    border-radius: 0;
-    padding: 12px 0;
+    border: 1px solid rgba(167, 232, 206, 0.55);
+    border-radius: 999px;
+    min-height: 42px;
+    padding: 9px 15px;
+    font-size: 0.88rem;
+    font-weight: 500;
     box-shadow: none;
-    gap: 24px;
+    transition: border-color 200ms ease, color 200ms ease;
 }
 .contact-form .contact-submit:hover,
 .contact-form .contact-submit:focus-visible {
     background: transparent;
-    color: var(--text);
-    border-color: var(--text);
+    color: var(--accent);
+    border-color: var(--accent);
     box-shadow: none;
+    transform: none;
 }
-.contact-form .contact-submit span { color: inherit; font-size: 1.4rem; }
+.contact-form .contact-submit:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+}
+.contact-name { position: relative; --name-font-size: 2.25rem; }
+.contact-form .name-placeholder {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    display: none;
+    align-items: center;
+    max-width: 100%;
+    transform: translateY(-50%);
+    color: var(--muted);
+    font-size: var(--name-font-size);
+    font-weight: 500;
+    line-height: 1.5;
+    white-space: pre;
+    pointer-events: none;
+}
+.contact-name input:placeholder-shown:not(:focus) ~ .name-placeholder { display: inline-flex; }
+.contact-form .contact-name input:not(:focus)::placeholder { color: transparent; }
+.name-placeholder::before { content: attr(data-text); }
+.name-placeholder::after {
+    content: '';
+    width: 2px;
+    height: 1em;
+    flex: 0 0 2px;
+    margin-left: 4px;
+    background: var(--accent);
+    animation: name-caret-blink 1s steps(1, end) infinite;
+}
+@keyframes name-caret-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .name-placeholder::after { animation: none; }
+}
 @media (max-width: 600px) {
+    .contact-name { --name-font-size: 1.75rem; }
     .contact-form input[name="name"] { font-size: 1.75rem; min-height: 88px; }
 }
 

@@ -10,6 +10,8 @@ uses(LazilyRefreshDatabase::class);
 
 beforeEach(function () {
     config()->set('app.url', 'https://portfolio.example.com');
+    config()->set('seo.url', 'https://portfolio.example.com');
+    config()->set('seo.enforce_canonical', false);
     URL::forceRootUrl('https://portfolio.example.com');
     URL::forceScheme('https');
     Profile::factory()->create([
@@ -28,7 +30,7 @@ test('the home page exposes complete metadata and a stable person entity', funct
     $response = $this->get(route('home'));
 
     $response->assertSuccessful()
-        ->assertSee('<title>Md. Shamsur Rahman | Software Engineer, Laravel Backend &amp; AI Research</title>', false)
+        ->assertSee('<title>Md. Shamsur Rahman (Shaikat) | Software Engineer &amp; Laravel Developer</title>', false)
         ->assertSee('<meta name="description"', false)
         ->assertSee('<link rel="canonical" href="https://portfolio.example.com">', false)
         ->assertSee('<meta property="og:image" content="https://portfolio.example.com/assets/images/og/md-shamsur-rahman-og.png">', false)
@@ -122,4 +124,47 @@ test('admin pages instruct search engines not to index them', function () {
     $this->get(route('admin.login'))
         ->assertSuccessful()
         ->assertSee('<meta name="robots" content="noindex,nofollow,noarchive">', false);
+});
+
+test('production SEO URLs and identity remain consistent when served from another host', function () {
+    config()->set('seo.url', 'https://shaikat.xyz');
+    Profile::query()->first()->update(['seo_description' => 'Laravel developer and web developer in Bangladesh.']);
+
+    $response = $this->get(route('home'))->assertSuccessful()
+        ->assertSee('<link rel="canonical" href="https://shaikat.xyz">', false)
+        ->assertSee('<meta property="og:url" content="https://shaikat.xyz">', false)
+        ->assertSee('<meta name="description" content="Laravel developer and web developer in Bangladesh.">', false)
+        ->assertSee('Also known as Shaikat');
+
+    preg_match('/<script type="application\/ld\+json">(.*?)<\/script>/s', $response->getContent(), $matches);
+    $graph = collect(json_decode($matches[1], true, 512, JSON_THROW_ON_ERROR)['@graph']);
+    $person = $graph->firstWhere('@type', 'Person');
+    $page = $graph->firstWhere('@type', 'ProfilePage');
+
+    expect($person['@id'])->toBe('https://shaikat.xyz/#person')
+        ->and($person['alternateName'])->toContain('Shaikat', 'Shamsur Rahman')
+        ->and($person['sameAs'])->not->toContain(config('seo.research.openreview_url'))
+        ->and($page['mainEntity']['@id'])->toBe($person['@id']);
+
+    $this->get(route('sitemap'))->assertSuccessful()
+        ->assertSee('<loc>https://shaikat.xyz</loc>', false)
+        ->assertDontSee('portfolio.example.com');
+    $this->get(route('robots'))->assertSuccessful()
+        ->assertSee('Sitemap: https://shaikat.xyz/sitemap.xml', false);
+    $this->get(route('llms'))->assertSuccessful()
+        ->assertSee('GitHub: https://github.com/Rahman-Shaikat', false)
+        ->assertSee('https://shaikat.xyz');
+    $this->get(route('projects.index', ['page' => 2]))->assertSuccessful()
+        ->assertSee('<link rel="canonical" href="https://shaikat.xyz/projects?page=2">', false);
+});
+
+test('canonical redirects preserve paths and query strings when enabled', function () {
+    config()->set('seo.url', 'https://shaikat.xyz');
+    config()->set('seo.enforce_canonical', true);
+
+    $this->get('http://www.shaikat.xyz/projects?page=2')
+        ->assertStatus(301)
+        ->assertRedirect('https://shaikat.xyz/projects?page=2');
+
+    $this->get('https://shaikat.xyz/')->assertSuccessful();
 });

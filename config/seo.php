@@ -1,10 +1,11 @@
 <?php
 
 return [
+    'url' => env('SEO_URL', 'https://shaikat.xyz'),
     'site_name' => 'Md. Shamsur Rahman',
     'default_image' => 'assets/images/og/md-shamsur-rahman-og.png',
     'robots' => 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1',
-    'enforce_canonical' => filter_var(env('SEO_ENFORCE_CANONICAL', false), FILTER_VALIDATE_BOOL),
+    'enforce_canonical' => filter_var(env('SEO_ENFORCE_CANONICAL', env('APP_ENV') === 'production'), FILTER_VALIDATE_BOOL),
 
     'verification' => [
         'google' => env('GOOGLE_SITE_VERIFICATION'),
@@ -13,6 +14,8 @@ return [
 
     'person' => [
         'name' => 'Md. Shamsur Rahman',
+        'alternate_names' => ['Shamsur Rahman', 'Shaikat', 'Rahman Shaikat'],
+        'introduction' => 'Also known as Shaikat, I am a software engineer and Laravel developer in Dhaka, Bangladesh. My work as a software developer focuses on reliable web applications, backend systems, and API integrations.',
         'job_title' => 'Software Engineer',
         'specialization' => 'Laravel / PHP Backend Development',
         'location' => 'Dhaka, Bangladesh',
@@ -20,8 +23,7 @@ return [
         'same_as' => [
             'https://www.linkedin.com/in/rahman-shaikat-7254651b7',
             'https://github.com/Rahman-Shaikat',
-            'https://scholar.google.com/citations?view_op=view_citation&hl=en&user=HSHJO28AAAAJ&citation_for_view=HSHJO28AAAAJ:d1gkVwhDpl0C',
-            'https://openreview.net/forum?id=VvbpOkDEBf',
+            'https://scholar.google.com/citations?user=HSHJO28AAAAJ',
         ],
         'knows_about' => [
             'Software Engineering',

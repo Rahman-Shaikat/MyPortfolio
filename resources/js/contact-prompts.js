@@ -5,10 +5,12 @@ export function initContactPrompts(form) {
         option: field.matches('select') ? field.options[0] : null,
         text: field.matches('select') ? field.options[0].textContent : field.placeholder,
         settled: false,
+        mirror: field.parentElement.querySelector('.name-placeholder'),
     }));
     const write = (prompt, text) => {
         if (prompt.option) prompt.option.textContent = text;
         else prompt.field.placeholder = text;
+        if (prompt.mirror) prompt.mirror.dataset.text = text;
     };
     let timer;
     let started = false;

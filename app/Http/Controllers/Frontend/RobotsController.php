@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Services\SeoService;
 use Illuminate\Http\Response;
 
 class RobotsController extends Controller
 {
-    public function __invoke(): Response
+    public function __invoke(SeoService $seoService): Response
     {
         $content = implode("\n", [
             'User-agent: *',
@@ -40,7 +41,7 @@ class RobotsController extends Controller
             'User-agent: PerplexityBot',
             'Allow: /',
             '',
-            'Sitemap: '.route('sitemap'),
+            'Sitemap: '.$seoService->url('sitemap'),
         ]);
 
         return response($content."\n", 200, ['Content-Type' => 'text/plain; charset=UTF-8']);

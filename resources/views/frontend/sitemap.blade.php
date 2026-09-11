@@ -1,12 +1,12 @@
 {!! '<?xml version="1.0" encoding="UTF-8"?>' !!}
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-@foreach ([route('home'), route('projects.index'), route('research.index'), route('contact')] as $url)
-    <url><loc>{{ $url }}</loc></url>
+@foreach (['home', 'projects.index', 'research.index', 'contact'] as $route)
+    <url><loc>{{ $seoService->url($route) }}</loc></url>
 @endforeach
 @foreach ($projects as $project)
-    <url><loc>{{ route('projects.show', $project->slug) }}</loc><lastmod>{{ $project->updated_at->toAtomString() }}</lastmod></url>
+    <url><loc>{{ $seoService->url('projects.show', ['slug' => $project->slug]) }}</loc><lastmod>{{ $project->updated_at->toAtomString() }}</lastmod></url>
 @endforeach
 @foreach ($publications as $publication)
-    <url><loc>{{ route('research.show', $publication->slug) }}</loc><lastmod>{{ $publication->updated_at->toAtomString() }}</lastmod></url>
+    <url><loc>{{ $seoService->url('research.show', ['slug' => $publication->slug]) }}</loc><lastmod>{{ $publication->updated_at->toAtomString() }}</lastmod></url>
 @endforeach
 </urlset>

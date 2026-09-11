@@ -11,6 +11,12 @@ if (experienceTree) {
 }
 
 const header = document.querySelector('[data-header]');
+const suedeButton = header?.querySelector('.nav-link-cta');
+if (suedeButton) {
+    import('./fabric-button').then(({ initFabricButton }) => {
+        initFabricButton(suedeButton);
+    }).catch(() => {});
+}
 const menu = document.querySelector('[data-menu]');
 const menuToggle = document.querySelector('[data-menu-toggle]');
 const navLinks = Array.from(document.querySelectorAll('.nav-link'));

@@ -14,14 +14,17 @@ class SeoService
      */
     public function home(Profile $profile): array
     {
-        $title = 'Md. Shamsur Rahman | Software Engineer, Laravel Backend & AI Research';
-        $description = 'Software Engineer in Dhaka, Bangladesh with 3+ years of experience building Laravel and PHP backends, REST APIs, CMS and e-commerce systems across 20+ projects, with LLM and AI research experience.';
-        $canonical = route('home');
+        $title = ($profile->name ?: config('seo.person.name')).' (Shaikat) | Software Engineer & Laravel Developer';
+        $description = $profile->seo_description ?: 'Shamsur Rahman (Shaikat), software engineer and Laravel developer in Dhaka, Bangladesh. PHP backend development, web applications, REST APIs and e-commerce.';
+        $canonical = $this->url('home');
+
+        $profilePage = $this->webPageEntity($title, $description, $canonical, 'ProfilePage');
+        $profilePage['mainEntity'] = ['@id' => $this->personId()];
 
         return $this->page($title, $description, $canonical, $this->graph([
             $this->personEntity($profile),
             $this->websiteEntity(),
-            $this->webPageEntity($title, $description, $canonical, 'ProfilePage'),
+            $profilePage,
         ]));
     }
 
@@ -33,7 +36,7 @@ class SeoService
         $suffix = $page > 1 ? " - Page {$page}" : '';
         $title = "Software Engineering Projects | Md. Shamsur Rahman{$suffix}";
         $description = 'Explore Laravel, PHP, backend systems, REST APIs, CMS and e-commerce projects developed or supported by Software Engineer Md. Shamsur Rahman.';
-        $canonical = route('projects.index', $page > 1 ? ['page' => $page] : []);
+        $canonical = $this->url('projects.index', $page > 1 ? ['page' => $page] : []);
 
         return $this->page($title, $description, $canonical, $this->graph([
             $this->webPageEntity($title, $description, $canonical, 'CollectionPage'),
@@ -52,8 +55,8 @@ class SeoService
             ? "{$project->name} {$projectCategory} Development | Md. Shamsur Rahman"
             : "{$project->name} Development | Md. Shamsur Rahman";
         $description = Str::limit(trim((string) ($project->contribution ?: $project->description)), 155, '');
-        $canonical = route('projects.show', $project->slug);
-        $image = $project->preview_image ? asset('storage/'.$project->preview_image) : $this->defaultImage();
+        $canonical = $this->url('projects.show', ['slug' => $project->slug]);
+        $image = $project->preview_image ? $this->siteUrl().'storage/'.$project->preview_image : $this->defaultImage();
         $relationship = $project->contribution_type === 'creator' ? 'creator' : 'contributor';
 
         $creativeWork = array_filter([
@@ -82,7 +85,7 @@ class SeoService
     {
         $title = 'AI & LLM Research | Md. Shamsur Rahman';
         $description = 'AI and LLM research by Md. Shamsur Rahman covering Bangla language models, LLM evaluation, social bias, cultural commonsense, responsible AI and benchmark development.';
-        $canonical = route('research.index');
+        $canonical = $this->url('research.index');
 
         return $this->page($title, $description, $canonical, $this->graph([
             $this->personEntity($profile),
@@ -97,8 +100,8 @@ class SeoService
     {
         $title = "{$publication->title} | Md. Shamsur Rahman";
         $description = Str::limit(trim((string) $publication->description), 155, '');
-        $canonical = route('research.show', $publication->slug);
-        $image = $publication->image ? asset('storage/'.$publication->image) : $this->defaultImage();
+        $canonical = $this->url('research.show', ['slug' => $publication->slug]);
+        $image = $publication->image ? $this->siteUrl().'storage/'.$publication->image : $this->defaultImage();
         $authors = collect($publication->authors ?? [])
             ->map(fn (string $author): array => $author === config('seo.person.name')
                 ? ['@type' => 'Person', '@id' => $this->personId(), 'name' => $author]
@@ -132,7 +135,7 @@ class SeoService
     {
         $title = 'Contact Md. Shamsur Rahman | Software Engineer';
         $description = 'Contact Md. Shamsur Rahman about Laravel development, PHP backend engineering, REST APIs, CMS, e-commerce systems, integrations and production application support.';
-        $canonical = route('contact');
+        $canonical = $this->url('contact');
 
         return $this->page($title, $description, $canonical, $this->graph([
             $this->webPageEntity($title, $description, $canonical, 'ContactPage'),
@@ -189,14 +192,15 @@ class SeoService
         return [
             '@type' => 'Person',
             '@id' => $this->personId(),
-            'name' => config('seo.person.name'),
-            'url' => route('home'),
-            'image' => $profile->profile_image ? asset('storage/'.$profile->profile_image) : asset('assets/images/My_Pic.png'),
-            'jobTitle' => config('seo.person.job_title'),
+            'name' => $profile->name ?: config('seo.person.name'),
+            'alternateName' => config('seo.person.alternate_names'),
+            'url' => $this->url('home'),
+            'image' => $this->siteUrl().($profile->profile_image ? 'storage/'.$profile->profile_image : 'assets/images/My_Pic.png'),
+            'jobTitle' => $profile->professional_title ?: config('seo.person.job_title'),
             'description' => config('seo.person.description'),
             'homeLocation' => [
                 '@type' => 'Place',
-                'name' => config('seo.person.location'),
+                'name' => $profile->location ?: config('seo.person.location'),
             ],
             'sameAs' => collect([...config('seo.person.same_as'), ...$profileLinks])->filter()->unique()->values()->all(),
             'knowsAbout' => config('seo.person.knows_about'),
@@ -211,8 +215,9 @@ class SeoService
         return [
             '@type' => 'WebSite',
             '@id' => $this->siteUrl().'#website',
-            'url' => route('home'),
+            'url' => $this->url('home'),
             'name' => config('seo.site_name'),
+            'alternateName' => ['Shaikat', 'Shamsur Rahman', 'shaikat.xyz'],
             'publisher' => ['@id' => $this->personId()],
         ];
     }
@@ -230,6 +235,7 @@ class SeoService
             'description' => $description,
             'isPartOf' => ['@id' => $this->siteUrl().'#website'],
             'about' => ['@id' => $this->personId()],
+            'inLanguage' => 'en',
         ];
     }
 
@@ -252,11 +258,19 @@ class SeoService
 
     private function siteUrl(): string
     {
-        return rtrim((string) config('app.url'), '/').'/';
+        return rtrim((string) config('seo.url'), '/').'/';
+    }
+
+    /**
+     * @param  array<string, mixed>  $parameters
+     */
+    public function url(string $route, array $parameters = []): string
+    {
+        return rtrim($this->siteUrl(), '/').rtrim(route($route, $parameters, false), '/');
     }
 
     private function defaultImage(): string
     {
-        return asset(config('seo.default_image'));
+        return $this->siteUrl().config('seo.default_image');
     }
 }

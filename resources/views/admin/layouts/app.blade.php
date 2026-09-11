@@ -6,8 +6,7 @@
     <meta name="author" content="Shamsur Rahman">
     <meta name="robots" content="noindex,nofollow,noarchive">
     <title>@yield('title', 'Admin') | Shamsur Rahman</title>
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('admin/assets/images/favicon/apple-icon-180x180.png') }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('admin/assets/images/favicon/favicon-32x32.png') }}">
+    <x-frontend::favicons />
     <script src="{{ asset('admin/assets/js/vendors/color-modes.js') }}"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
