@@ -10,6 +10,7 @@ const heroRevealItems = Array.from(document.querySelectorAll('.hero .reveal'));
 const backToTop = document.querySelector('[data-back-to-top]');
 const contactForm = document.querySelector('[data-contact-form]');
 const formNote = document.querySelector('[data-form-note]');
+const researchVideo = document.querySelector('[data-research-video]');
 
 const closeMenu = () => {
     if (!menu || !menuToggle) {
@@ -102,6 +103,33 @@ contactForm?.addEventListener('submit', () => {
         formNote.textContent = 'Opening your email client with the project details.';
     }
 });
+
+if (researchVideo) {
+    researchVideo.muted = true;
+    let isVideoVisible = false;
+
+    const updateVideoPlayback = () => {
+        if (isVideoVisible && !document.hidden) {
+            researchVideo.play().catch(() => {});
+        } else {
+            researchVideo.pause();
+        }
+    };
+
+    if ('IntersectionObserver' in window) {
+        const videoObserver = new IntersectionObserver(([entry]) => {
+            isVideoVisible = entry.isIntersecting;
+            updateVideoPlayback();
+        }, { threshold: 0 });
+
+        videoObserver.observe(researchVideo);
+    } else {
+        isVideoVisible = true;
+        updateVideoPlayback();
+    }
+
+    document.addEventListener('visibilitychange', updateVideoPlayback);
+}
 
 setHeaderState();
 setBackToTopState();

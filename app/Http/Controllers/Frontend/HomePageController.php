@@ -23,7 +23,7 @@ class HomePageController extends Controller
         $profile = $this->profileService->currentProfile();
 
         return view('frontend.home', [
-            'featuredProjects' => $this->projectService->featuredProjects(),
+            'featuredProjects' => $this->projectService->featuredProjects(6),
             'featuredPublications' => $this->publicationService->featuredPublications(),
             'profile' => $profile,
             'seo' => $this->seoService->home($profile),

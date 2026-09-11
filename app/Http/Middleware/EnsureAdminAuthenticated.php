@@ -14,7 +14,7 @@ class EnsureAdminAuthenticated
     public function handle(Request $request, Closure $next): Response
     {
         if (! (bool) $request->session()->get('admin_authenticated', false)) {
-            return to_route('admin.login');
+            abort(404);
         }
 
         return $next($request);

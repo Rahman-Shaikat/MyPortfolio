@@ -50,9 +50,9 @@ class ProfileSeeder extends Seeder
             'projects_title' => 'Selected platforms I have built and supported for clients, teams, and personal products.',
             'experience_title' => 'Practical delivery across product builds, integrations, and optimization work.',
             'experiences' => [
-                ['period' => '2024 - Present', 'title' => 'Software Engineer', 'description' => 'Building Laravel applications, REST APIs, admin dashboards, and integration workflows for operational teams.'],
-                ['period' => '2022 - 2024', 'title' => 'Laravel Developer', 'description' => 'Delivered eCommerce features, database-backed business tools, bug fixes, and performance improvements.'],
-                ['period' => '2020 - 2022', 'title' => 'Full-stack Web Developer', 'description' => 'Created responsive interfaces, PHP modules, jQuery interactions, and deployment-ready websites for small businesses.'],
+                ['period' => 'January, 2026 - Present', 'title' => 'Software Engineer', 'description' => 'eMythMakers'],
+                ['period' => 'October, 2023 - December, 2025', 'title' => 'Jr. Software Engineer', 'description' => 'eMythMakers'],
+                ['period' => 'June, 2023 - September, 2023', 'title' => 'Trainee Laravel Developer', 'description' => 'iNiLabs'],
             ],
             'contact_title' => 'Have a Laravel product, API, or web workflow that needs careful execution?',
             'contact_description' => 'Send a short brief about your Laravel application, backend system, REST API, CMS, e-commerce workflow, or production issue, and I will respond with practical technical next steps.',

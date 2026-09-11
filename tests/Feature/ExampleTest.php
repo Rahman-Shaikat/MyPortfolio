@@ -3,6 +3,7 @@
 use App\Models\Project;
 use Database\Seeders\ProjectSeeder;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
+use Illuminate\Support\Facades\Hash;
 
 uses(LazilyRefreshDatabase::class);
 
@@ -16,7 +17,10 @@ test('the application returns a successful response', function () {
         ->assertSee('bdnews24.com')
         ->assertSee('Sanitation Knowledge Repository')
         ->assertSee('Jhingephul Publication')
-        ->assertDontSee('Taan');
+        ->assertSee('Taan')
+        ->assertSee('Khalid Sangeet')
+        ->assertSee('Step Footwear')
+        ->assertDontSee('Resume Engineer');
 });
 
 test('the projects page returns a successful response', function () {
@@ -75,24 +79,44 @@ test('project preview images are rendered on public project cards', function () 
         ->assertSee(asset('storage/projects/project-preview.jpg'), false);
 });
 
-test('the admin login page returns a successful response', function () {
-    $response = $this->get('/admin/login');
-
-    $response->assertSuccessful()
+test('only the private admin login URL shows the login form', function () {
+    $this->get(route('admin.login'))
+        ->assertSuccessful()
         ->assertSee('Admin Login')
         ->assertSee('Sign In');
+
+    $this->get('/admin/login')->assertNotFound();
+    $this->get('/admin/login/U1GFG_45vj-ik7BD_VFji_khr0v')->assertNotFound();
+    $this->post('/admin/login')->assertNotFound();
 });
 
-test('the admin dashboard redirects guests to login', function () {
-    $response = $this->get('/admin/dashboard');
+test('admin routes are concealed from unauthenticated visitors', function (string $method, string $url) {
+    $response = $this->call($method, $url);
 
-    $response->assertRedirect(route('admin.login'));
-});
+    $response->assertNotFound();
+    expect($response->headers->has('Location'))->toBeFalse();
+})->with([
+    'admin entry point' => ['GET', '/admin'],
+    'dashboard' => ['GET', '/admin/dashboard'],
+    'projects' => ['GET', '/admin/projects'],
+    'publications' => ['GET', '/admin/publications'],
+    'profiles' => ['GET', '/admin/profiles'],
+    'logout' => ['POST', '/admin/logout'],
+]);
 
 test('the admin login form opens the dashboard', function () {
-    $response = $this->post('/admin/login', [
+    config()->set('admin.email', 'admin@example.com');
+    config()->set('admin.password_hash', Hash::make('correct-password'));
+
+    $this->from(route('admin.login'))->post(route('admin.login.store'), [
         'email' => 'admin@example.com',
-        'password' => 'password',
+        'password' => 'wrong-password',
+    ])->assertRedirect(route('admin.login'))
+        ->assertSessionHasErrors('email');
+
+    $response = $this->post(route('admin.login.store'), [
+        'email' => 'admin@example.com',
+        'password' => 'correct-password',
     ]);
 
     $response->assertRedirect(route('admin.dashboard'));
@@ -101,4 +125,21 @@ test('the admin login form opens the dashboard', function () {
         ->assertSuccessful()
         ->assertSee('Admin Dashboard')
         ->assertSee('Featured Portfolio Items');
+});
+
+test('the private admin login endpoint is rate limited', function () {
+    config()->set('admin.email', 'admin@example.com');
+    config()->set('admin.password_hash', Hash::make('correct-password'));
+
+    foreach (range(1, 5) as $attempt) {
+        $this->post(route('admin.login.store'), [
+            'email' => 'admin@example.com',
+            'password' => 'wrong-password',
+        ])->assertSessionHasErrors('email');
+    }
+
+    $this->post(route('admin.login.store'), [
+        'email' => 'admin@example.com',
+        'password' => 'wrong-password',
+    ])->assertTooManyRequests();
 });

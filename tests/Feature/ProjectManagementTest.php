@@ -9,7 +9,7 @@ uses(LazilyRefreshDatabase::class);
 
 test('guests cannot access project management', function () {
     $this->get(route('admin.projects.index'))
-        ->assertRedirect(route('admin.login'));
+        ->assertNotFound();
 });
 
 test('an authenticated admin can search project records', function () {

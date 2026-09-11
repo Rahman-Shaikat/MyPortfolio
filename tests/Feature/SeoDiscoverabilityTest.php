@@ -86,7 +86,7 @@ test('research publication pages expose scholarly article schema and source link
         ->assertSee('"@type":"ScholarlyArticle"', false)
         ->assertSee('MusIML Workshop, ICML 2026')
         ->assertSee(config('seo.research.openreview_url'))
-        ->assertSee(config('seo.research.scholar_url'));
+        ->assertSee('citation_for_view=HSHJO28AAAAJ:d1gkVwhDpl0C', false);
 });
 
 test('the XML sitemap contains indexable public records only', function () {

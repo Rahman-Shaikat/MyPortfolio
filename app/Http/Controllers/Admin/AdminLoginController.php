@@ -7,16 +7,11 @@ use App\Http\Requests\AdminLoginRequest;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class AdminLoginController extends Controller
 {
-    public function redirect(Request $request): RedirectResponse
-    {
-        return to_route(
-            $this->isAuthenticated($request) ? 'admin.dashboard' : 'admin.login'
-        );
-    }
-
     public function showLoginForm(Request $request): View|RedirectResponse
     {
         if ($this->isAuthenticated($request)) {
@@ -28,7 +23,21 @@ class AdminLoginController extends Controller
 
     public function login(AdminLoginRequest $request): RedirectResponse
     {
-        $request->validated();
+        $credentials = $request->validated();
+        $adminEmail = (string) config('admin.email');
+        $adminPasswordHash = (string) config('admin.password_hash');
+
+        if (
+            $adminEmail === ''
+            || $adminPasswordHash === ''
+            || ! hash_equals(mb_strtolower($adminEmail), mb_strtolower($credentials['email']))
+            || ! Hash::check($credentials['password'], $adminPasswordHash)
+        ) {
+            throw ValidationException::withMessages([
+                'email' => 'The provided credentials are invalid.',
+            ]);
+        }
+
         $request->session()->regenerate();
         $request->session()->put('admin_authenticated', true);
 

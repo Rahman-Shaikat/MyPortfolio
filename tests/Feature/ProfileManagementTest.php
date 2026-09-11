@@ -9,7 +9,7 @@ uses(LazilyRefreshDatabase::class);
 
 test('guests cannot access profile management', function () {
     $this->get(route('admin.profiles.index'))
-        ->assertRedirect(route('admin.login'));
+        ->assertNotFound();
 });
 
 test('an authenticated admin can create the portfolio profile with media', function () {

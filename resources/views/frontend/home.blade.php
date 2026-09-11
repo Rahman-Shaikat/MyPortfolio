@@ -83,6 +83,25 @@
                 </div>
             </section>
 
+            <section class="section-pad" id="experience" aria-labelledby="experience-title">
+                <div class="container split-section">
+                    <div class="timeline reveal">
+                        @foreach ($profile->experiences ?? [] as $experience)
+                            <article>
+                                <span>{{ $experience['period'] }}</span>
+                                <h3>{{ $experience['title'] }}</h3>
+                                <p>{{ $experience['description'] }}</p>
+                            </article>
+                        @endforeach
+                    </div>
+
+                    <div class="section-heading reveal">
+                        <p class="eyebrow">Experience</p>
+                        <h2 id="experience-title">{{ $profile->experience_title }}</h2>
+                    </div>
+                </div>
+            </section>
+
             <section class="section-pad muted-band" id="skills" aria-labelledby="skills-title">
                 <div class="container">
                     <div class="section-heading center reveal">
@@ -136,25 +155,6 @@
                 </div>
             </section>
 
-            <section class="section-pad" id="experience" aria-labelledby="experience-title">
-                <div class="container split-section">
-                    <div class="section-heading reveal">
-                        <p class="eyebrow">Experience</p>
-                        <h2 id="experience-title">{{ $profile->experience_title }}</h2>
-                    </div>
-
-                    <div class="timeline reveal">
-                        @foreach ($profile->experiences ?? [] as $experience)
-                            <article>
-                                <span>{{ $experience['period'] }}</span>
-                                <h3>{{ $experience['title'] }}</h3>
-                                <p>{{ $experience['description'] }}</p>
-                            </article>
-                        @endforeach
-                    </div>
-                </div>
-            </section>
-
             <section class="section-pad" id="research" aria-labelledby="research-title">
                 <div class="container">
                     <div class="section-heading reveal">
@@ -162,15 +162,22 @@
                         <h2 id="research-title">Responsible AI and culturally grounded evaluation for Bangla language models.</h2>
                     </div>
 
-                    <div class="thought-grid">
-                        @forelse ($featuredPublications as $publication)
-                            @include('frontend.partials.publication-card', ['publication' => $publication])
-                        @empty
-                            <p class="empty-state">Research records will appear here when published.</p>
-                        @endforelse
-                    </div>
+                    <div class="research-showcase">
+                        <div class="thought-grid">
+                            @forelse ($featuredPublications as $publication)
+                                @include('frontend.partials.publication-card', ['publication' => $publication])
+                            @empty
+                                <p class="empty-state">Research records will appear here when published.</p>
+                            @endforelse
+                        </div>
 
-                    <div class="section-actions reveal">
+                        <figure class="research-video" aria-hidden="true">
+                            <video data-research-video autoplay muted loop playsinline disablepictureinpicture disableremoteplayback preload="metadata" tabindex="-1">
+                                <source src="{{ asset('assets/videos/3D-1.mp4') }}" type="video/mp4">
+                            </video>
+                        </figure>
+                    </div>
+                    <div class="section-actions research-actions reveal">
                         <a class="button button-secondary" href="{{ route('research.index') }}">Explore research</a>
                     </div>
                 </div>

@@ -9,7 +9,7 @@ uses(LazilyRefreshDatabase::class);
 
 test('guests cannot access publication management', function () {
     $this->get(route('admin.publications.index'))
-        ->assertRedirect(route('admin.login'));
+        ->assertNotFound();
 });
 
 test('an authenticated admin can search publication records', function () {
