@@ -86,12 +86,6 @@
             <div class="card card-lg admin-project-settings">
                 <div class="card-body">
                     <h2 class="fs-5 mb-4">Publishing</h2>
-                    <div class="mb-5">
-                        <label for="sort_order" class="form-label">Sort order</label>
-                        <input id="sort_order" name="sort_order" type="number" min="0" class="form-control @error('sort_order') is-invalid @enderror" value="{{ old('sort_order', $project->sort_order ?? 0) }}" required>
-                        @error('sort_order')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                    </div>
-
                     <input type="hidden" name="is_personal" value="0">
                     <div class="form-check form-switch mb-4">
                         <input id="is_personal" name="is_personal" class="form-check-input" type="checkbox" value="1" @checked((bool) old('is_personal', $project->is_personal ?? false))>

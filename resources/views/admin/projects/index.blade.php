@@ -8,7 +8,7 @@
     <div class="admin-page-heading d-flex flex-wrap align-items-center justify-content-between gap-3 mb-6">
         <div>
             <h2 class="fs-3 mb-1">Project library</h2>
-            <p class="text-secondary mb-0">{{ $projects->total() }} project records</p>
+            <p class="text-secondary mb-0">{{ $projects->count() }} project records</p>
         </div>
         <a href="{{ route('admin.projects.create') }}" class="btn btn-primary"><i class="ti ti-plus me-2"></i>Add Project</a>
     </div>
@@ -25,13 +25,23 @@
                     <a href="{{ route('admin.projects.index') }}" class="btn btn-white" aria-label="Clear search" title="Clear search"><i class="ti ti-x"></i></a>
                 @endif
             </form>
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mt-3">
+                <p class="text-secondary small mb-0">
+                    @if ($search === '')
+                        <i class="ti ti-grip-vertical me-1" aria-hidden="true"></i>Drag projects to change their display order.
+                    @else
+                        Clear the search to change project order.
+                    @endif
+                </p>
+                <span class="admin-sort-status small" data-project-sort-status aria-live="polite"></span>
+            </div>
         </div>
 
         <div class="table-responsive">
             <table class="table align-middle mb-0 admin-project-table">
                 <thead>
                     <tr>
-                        <th scope="col">Order</th>
+                        <th scope="col"><span class="visually-hidden">Reorder</span></th>
                         <th scope="col">Project</th>
                         <th scope="col">Technologies</th>
                         <th scope="col">Type</th>
@@ -39,10 +49,16 @@
                         <th scope="col" class="text-end">Actions</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody @if ($search === '') data-project-sortable data-reorder-url="{{ route('admin.projects.reorder') }}" @endif>
                     @forelse ($projects as $project)
-                        <tr>
-                            <td class="fw-semibold">{{ $project->sort_order }}</td>
+                        <tr data-project-id="{{ $project->id }}">
+                            <td class="admin-project-drag-cell">
+                                @if ($search === '')
+                                    <button type="button" class="admin-project-drag-handle" aria-label="Move {{ $project->name }}" title="Drag to reorder">
+                                        <i class="ti ti-grip-vertical" aria-hidden="true"></i>
+                                    </button>
+                                @endif
+                            </td>
                             <td class="admin-project-name-cell">
                                 <div class="d-flex align-items-start gap-3">
                                     @if ($project->preview_image)
@@ -106,11 +122,9 @@
             </table>
         </div>
 
-        @if ($projects->hasPages())
-            <div class="card-body border-top d-flex flex-wrap align-items-center justify-content-between gap-3 admin-pagination-shell">
-                <p class="text-secondary small mb-0">Showing {{ $projects->firstItem() }}-{{ $projects->lastItem() }} of {{ $projects->total() }}</p>
-                {{ $projects->links() }}
-            </div>
-        @endif
     </div>
 @endsection
+
+@push('scripts')
+    @vite('resources/js/admin-project-sortable.js')
+@endpush

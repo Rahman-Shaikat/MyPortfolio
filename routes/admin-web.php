@@ -16,6 +16,7 @@ Route::prefix('admin')->name('admin.')->middleware('admin.session')->group(funct
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
     Route::post('/logout', [AdminLoginController::class, 'logout'])->name('logout');
     Route::resource('profiles', ProfileController::class)->except('show');
+    Route::patch('/projects/reorder', [ProjectController::class, 'reorder'])->name('projects.reorder');
     Route::resource('projects', ProjectController::class)->except('show');
     Route::resource('publications', PublicationController::class)->except('show');
 });

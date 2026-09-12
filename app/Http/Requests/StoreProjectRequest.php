@@ -35,7 +35,6 @@ class StoreProjectRequest extends FormRequest
             'technologies.*' => ['required', 'string', 'max:50'],
             'preview_image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
             'is_personal' => ['required', 'boolean'],
-            'sort_order' => ['required', 'integer', 'min:0', 'max:4294967295'],
             'status' => ['required', 'boolean'],
         ];
     }

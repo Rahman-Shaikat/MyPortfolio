@@ -41,7 +41,6 @@ class UpdateProjectRequest extends FormRequest
             'preview_image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
             'remove_preview_image' => ['nullable', 'boolean'],
             'is_personal' => ['required', 'boolean'],
-            'sort_order' => ['required', 'integer', 'min:0', 'max:4294967295'],
             'status' => ['required', 'boolean'],
         ];
     }

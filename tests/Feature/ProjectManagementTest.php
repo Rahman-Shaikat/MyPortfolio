@@ -33,8 +33,16 @@ test('an authenticated admin sees the enhanced project image uploader', function
         ->assertSee('data-preview-upload-zone', false);
 });
 
+test('the project form does not expose a manual sort order field', function () {
+    $this->withSession(['admin_authenticated' => true])
+        ->get(route('admin.projects.create'))
+        ->assertSuccessful()
+        ->assertDontSee('name="sort_order"', false);
+});
+
 test('an authenticated admin can create a project', function () {
     Storage::fake('public');
+    $nextSortOrder = ((int) Project::query()->max('sort_order')) + 1;
 
     $response = $this
         ->withSession(['admin_authenticated' => true])
@@ -46,7 +54,6 @@ test('an authenticated admin can create a project', function () {
             'technologies' => 'Laravel, PHP, MySQL, laravel',
             'preview_image' => UploadedFile::fake()->image('project-preview.jpg', 1200, 675),
             'is_personal' => '1',
-            'sort_order' => '9',
             'status' => '1',
         ]);
 
@@ -58,7 +65,7 @@ test('an authenticated admin can create a project', function () {
     expect($project->technologies)->toBe(['Laravel', 'PHP', 'MySQL'])
         ->and($project->is_personal)->toBeTrue()
         ->and($project->status)->toBeTrue()
-        ->and($project->sort_order)->toBe(9)
+        ->and($project->sort_order)->toBe($nextSortOrder)
         ->and($project->preview_image)->not->toBeNull();
 
     Storage::disk('public')->assertExists($project->preview_image);
@@ -77,12 +84,11 @@ test('project creation requires valid data and a unique slug', function () {
             'technologies' => 'Laravel',
             'preview_image' => UploadedFile::fake()->create('project-preview.pdf', 100, 'application/pdf'),
             'is_personal' => '0',
-            'sort_order' => 'first',
             'status' => 'visible',
         ]);
 
     $response->assertRedirect(route('admin.projects.create'))
-        ->assertSessionHasErrors(['slug', 'url', 'preview_image', 'sort_order', 'status']);
+        ->assertSessionHasErrors(['slug', 'url', 'preview_image', 'status']);
 });
 
 test('an authenticated admin can update a project', function () {
@@ -100,7 +106,6 @@ test('an authenticated admin can update a project', function () {
             'description' => 'Updated project description.',
             'technologies' => 'Laravel, Redis',
             'is_personal' => '0',
-            'sort_order' => '2',
             'status' => '0',
         ]);
 
@@ -133,7 +138,6 @@ test('an authenticated admin can replace a project preview image', function () {
             'technologies' => collect($project->technologies)->join(', '),
             'preview_image' => UploadedFile::fake()->image('replacement-preview.webp', 1200, 675),
             'is_personal' => (int) $project->is_personal,
-            'sort_order' => $project->sort_order,
             'status' => (int) $project->status,
         ]);
 
@@ -164,7 +168,6 @@ test('an authenticated admin can remove a project preview image', function () {
             'technologies' => collect($project->technologies)->join(', '),
             'remove_preview_image' => '1',
             'is_personal' => (int) $project->is_personal,
-            'sort_order' => $project->sort_order,
             'status' => (int) $project->status,
         ]);
 
@@ -191,4 +194,46 @@ test('an authenticated admin can delete a project', function () {
 
     $this->assertModelMissing($project);
     Storage::disk('public')->assertMissing($previewImage);
+});
+
+test('guests cannot reorder projects', function () {
+    $projects = Project::factory()->count(2)->create();
+
+    $this->patchJson(route('admin.projects.reorder'), [
+        'projects' => $projects->modelKeys(),
+    ])->assertNotFound();
+});
+
+test('an authenticated admin can reorder all projects', function () {
+    Project::query()->delete();
+    $first = Project::factory()->create(['sort_order' => 1]);
+    $second = Project::factory()->create(['sort_order' => 2]);
+    $third = Project::factory()->create(['sort_order' => 3]);
+
+    $this->withSession(['admin_authenticated' => true])
+        ->patchJson(route('admin.projects.reorder'), [
+            'projects' => [$third->id, $first->id, $second->id],
+        ])
+        ->assertSuccessful()
+        ->assertJsonPath('message', 'Project order saved.');
+
+    expect($third->refresh()->sort_order)->toBe(1)
+        ->and($first->refresh()->sort_order)->toBe(2)
+        ->and($second->refresh()->sort_order)->toBe(3);
+});
+
+test('project reordering requires the complete project list', function () {
+    Project::query()->delete();
+    $first = Project::factory()->create(['sort_order' => 1]);
+    $second = Project::factory()->create(['sort_order' => 2]);
+
+    $this->withSession(['admin_authenticated' => true])
+        ->patchJson(route('admin.projects.reorder'), [
+            'projects' => [$second->id],
+        ])
+        ->assertUnprocessable()
+        ->assertJsonValidationErrors('projects');
+
+    expect($first->refresh()->sort_order)->toBe(1)
+        ->and($second->refresh()->sort_order)->toBe(2);
 });

@@ -379,3 +379,50 @@
     padding: 0.75rem;
   }
 }
+/* Project ordering */
+.admin-project-drag-cell {
+    width: 3.25rem;
+}
+
+.admin-project-drag-handle {
+    align-items: center;
+    background: transparent;
+    border: 0;
+    border-radius: .375rem;
+    color: var(--bs-secondary-color);
+    cursor: grab;
+    display: inline-flex;
+    font-size: 1.25rem;
+    height: 2.25rem;
+    justify-content: center;
+    transition: background-color 180ms ease, color 180ms ease;
+    width: 2.25rem;
+}
+
+.admin-project-drag-handle:hover,
+.admin-project-drag-handle:focus-visible {
+    background: var(--bs-primary-bg-subtle);
+    color: var(--bs-primary);
+    outline: 0;
+}
+
+.admin-project-drag-handle:focus-visible {
+    box-shadow: 0 0 0 .2rem rgba(var(--bs-primary-rgb), .2);
+}
+
+.admin-project-sort-chosen .admin-project-drag-handle,
+.admin-project-sort-dragging .admin-project-drag-handle {
+    cursor: grabbing;
+}
+
+.admin-project-sort-ghost {
+    opacity: .35;
+}
+
+.admin-project-sort-chosen {
+    background: var(--bs-primary-bg-subtle);
+}
+
+.admin-sort-status {
+    min-height: 1.25rem;
+}

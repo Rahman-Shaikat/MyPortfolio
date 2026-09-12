@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
 use RuntimeException;
 use Throwable;
 
@@ -24,7 +26,7 @@ class ProjectService
             ->get();
     }
 
-    public function paginatedProjects(int $perPage = 3): LengthAwarePaginator
+    public function paginatedProjects(int $perPage = 20): LengthAwarePaginator
     {
         return $this->activeProjectsQuery()->paginate($perPage);
     }
@@ -50,7 +52,10 @@ class ProjectService
         return Project::query()->active()->count();
     }
 
-    public function adminProjects(?string $search = null, int $perPage = 10): LengthAwarePaginator
+    /**
+     * @return Collection<int, Project>
+     */
+    public function adminProjects(?string $search = null): Collection
     {
         return Project::query()
             ->when($search, function (Builder $query, string $search): void {
@@ -61,8 +66,7 @@ class ProjectService
             })
             ->orderBy('sort_order')
             ->orderBy('id')
-            ->paginate($perPage)
-            ->withQueryString();
+            ->get();
     }
 
     /**
@@ -70,6 +74,7 @@ class ProjectService
      */
     public function createProject(array $attributes, ?UploadedFile $previewImage = null): Project
     {
+        $attributes['sort_order'] = ((int) Project::query()->max('sort_order')) + 1;
         $previewImagePath = $previewImage ? $this->storePreviewImage($previewImage) : null;
 
         if ($previewImagePath) {
@@ -122,6 +127,34 @@ class ProjectService
         $project->delete();
 
         $this->deletePreviewImage($previewImagePath);
+    }
+
+    /**
+     * @param  array<int, int>  $projectIds
+     */
+    public function reorderProjects(array $projectIds): void
+    {
+        DB::transaction(function () use ($projectIds): void {
+            $storedProjectIds = Project::query()
+                ->lockForUpdate()
+                ->pluck('id')
+                ->all();
+
+            $submittedProjectIds = array_map('intval', $projectIds);
+            sort($storedProjectIds);
+            $sortedSubmittedProjectIds = $submittedProjectIds;
+            sort($sortedSubmittedProjectIds);
+
+            if ($storedProjectIds !== $sortedSubmittedProjectIds) {
+                throw ValidationException::withMessages([
+                    'projects' => 'The project list changed. Refresh the page and try again.',
+                ]);
+            }
+
+            foreach ($submittedProjectIds as $index => $projectId) {
+                Project::query()->whereKey($projectId)->update(['sort_order' => $index + 1]);
+            }
+        });
     }
 
     /**
