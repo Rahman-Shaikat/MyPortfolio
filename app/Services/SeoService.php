@@ -195,7 +195,7 @@ class SeoService
             'name' => $profile->name ?: config('seo.person.name'),
             'alternateName' => config('seo.person.alternate_names'),
             'url' => $this->url('home'),
-            'image' => $this->siteUrl().($profile->profile_image ? 'storage/'.$profile->profile_image : 'assets/images/My_Pic.png'),
+            'image' => $this->siteUrl().($profile->profile_image ? 'storage/'.$profile->profile_image : 'assets/images/My_Pic.webp'),
             'jobTitle' => $profile->professional_title ?: config('seo.person.job_title'),
             'description' => config('seo.person.description'),
             'homeLocation' => [

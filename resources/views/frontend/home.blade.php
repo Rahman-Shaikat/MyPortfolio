@@ -30,7 +30,7 @@
                     <div class="hero-visual reveal" aria-label="Original profile artwork and engineering summary">
                         <div class="profile-card">
                             <div class="profile-art">
-                                <img src="{{ $profile->profile_image ? asset('storage/'.$profile->profile_image) : asset('assets/images/My_Pic.png') }}" alt="Profile photo of {{ $profile->name }}" width="1024" height="1005" fetchpriority="high" decoding="async">
+                                <img src="{{ $profile->profile_image ? asset('storage/'.$profile->profile_image) : asset('assets/images/My_Pic.webp') }}" alt="Profile photo of {{ $profile->name }}" width="1024" height="1005" fetchpriority="high" decoding="async">
                             </div>
                             <div class="profile-caption">
                                 <strong>{{ $profile->name }}</strong>
