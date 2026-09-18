@@ -152,7 +152,7 @@ test('production SEO URLs and identity remain consistent when served from anothe
     $this->get(route('robots'))->assertSuccessful()
         ->assertSee('Sitemap: https://shaikat.xyz/sitemap.xml', false);
     $this->get(route('llms'))->assertSuccessful()
-        ->assertSee('GitHub: https://github.com/Rahman-Shaikat', false)
+        ->assertSee('[GitHub](https://github.com/Rahman-Shaikat)', false)
         ->assertSee('https://shaikat.xyz');
     $this->get(route('projects.index', ['page' => 2]))->assertSuccessful()
         ->assertSee('<link rel="canonical" href="https://shaikat.xyz/projects?page=2">', false);

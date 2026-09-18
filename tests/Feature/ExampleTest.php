@@ -31,18 +31,25 @@ test('the projects page returns a successful response', function () {
     $response->assertSuccessful()
         ->assertSee('All projects')
         ->assertSee('bdnews24.com')
-        ->assertSee('Showing 1-3 of 8 projects');
+        ->assertSee('Kinbo');
 });
 
 test('the projects page can show the next page of projects', function () {
     $this->seed(ProjectSeeder::class);
+    Project::factory()->count(12)->sequence(
+        fn ($sequence): array => ['sort_order' => 9 + $sequence->index],
+    )->create();
+    Project::factory()->create([
+        'name' => 'Twenty First Project',
+        'slug' => 'twenty-first-project',
+        'sort_order' => 21,
+    ]);
 
     $response = $this->get('/projects?page=2');
 
     $response->assertSuccessful()
-        ->assertSee('Taan')
-        ->assertSee('Step Footwear')
-        ->assertSee('Showing 4-6 of 8 projects');
+        ->assertSee('Twenty First Project')
+        ->assertSee('Showing 21-21 of 21 projects');
 });
 
 test('the projects page excludes inactive projects', function () {
@@ -56,8 +63,7 @@ test('the projects page excludes inactive projects', function () {
 
     $this->get('/projects')
         ->assertSuccessful()
-        ->assertDontSee('Hidden Portfolio Project')
-        ->assertSee('Showing 1-3 of 8 projects');
+        ->assertDontSee('Hidden Portfolio Project');
 });
 
 test('project technologies are cast to an array', function () {

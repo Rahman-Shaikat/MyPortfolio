@@ -1,17 +1,17 @@
-@import '@fortawesome/fontawesome-free/css/brands.min.css';
-
 .fa-brands {
+    width: 1em;
+    height: 1em;
     display: inline-block;
-    font-family: var(--fa-family-brands);
-    font-style: normal;
-    font-variant: normal;
-    line-height: 1;
-    text-rendering: auto;
+    background-color: currentColor;
+    mask: var(--fa-icon) center / contain no-repeat;
+    -webkit-mask: var(--fa-icon) center / contain no-repeat;
 }
 
-.fa-brands::before {
-    content: var(--fa);
-}
+.fa-facebook-f { --fa-icon: url('../../node_modules/@fortawesome/fontawesome-free/svgs/brands/facebook-f.svg'); }
+.fa-instagram { --fa-icon: url('../../node_modules/@fortawesome/fontawesome-free/svgs/brands/instagram.svg'); }
+.fa-github { --fa-icon: url('../../node_modules/@fortawesome/fontawesome-free/svgs/brands/github.svg'); }
+.fa-linkedin-in { --fa-icon: url('../../node_modules/@fortawesome/fontawesome-free/svgs/brands/linkedin-in.svg'); }
+.fa-medium { --fa-icon: url('../../node_modules/@fortawesome/fontawesome-free/svgs/brands/medium.svg'); }
 
 :root {
     --bg: #101715;
@@ -34,6 +34,14 @@
 
 * {
     box-sizing: border-box;
+}
+
+.contact-honeypot {
+    position: absolute !important;
+    left: -10000px !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
 }
 
 html {

@@ -1,21 +1,48 @@
-import 'wowjs/css/libs/animate.css';
 import { initContactPrompts } from './contact-prompts';
 
 document.documentElement.classList.add('js');
 
+const whenNearViewport = (element, callback, rootMargin = '320px 0px') => {
+    if (!element || !('IntersectionObserver' in window)) {
+        callback();
+
+        return;
+    }
+
+    const observer = new IntersectionObserver(([entry]) => {
+        if (!entry.isIntersecting) {
+            return;
+        }
+
+        observer.disconnect();
+        callback();
+    }, { rootMargin });
+
+    observer.observe(element);
+};
+
 const experienceTree = document.querySelector('[data-experience-tree]');
 if (experienceTree) {
-    import('./experience-tree').then(({ initExperienceTree }) => {
-        initExperienceTree(experienceTree);
-    }).catch(() => {});
+    whenNearViewport(experienceTree, () => {
+        import('./experience-tree').then(({ initExperienceTree }) => {
+            initExperienceTree(experienceTree);
+        }).catch(() => {});
+    });
 }
 
 const header = document.querySelector('[data-header]');
 const suedeButton = header?.querySelector('.nav-link-cta');
 if (suedeButton) {
-    import('./fabric-button').then(({ initFabricButton }) => {
-        initFabricButton(suedeButton);
-    }).catch(() => {});
+    const initializeSuedeButton = () => {
+        suedeButton.removeEventListener('pointerenter', initializeSuedeButton);
+        suedeButton.removeEventListener('focus', initializeSuedeButton);
+        import('./fabric-button').then(({ initFabricButton }) => {
+            initFabricButton(suedeButton);
+        }).catch(() => {});
+    };
+
+    suedeButton.addEventListener('pointerenter', initializeSuedeButton, { once: true });
+    suedeButton.addEventListener('focus', initializeSuedeButton, { once: true });
 }
 const menu = document.querySelector('[data-menu]');
 const menuToggle = document.querySelector('[data-menu-toggle]');
@@ -50,19 +77,24 @@ if (skillCloud) {
 }
 
 if (wowItems.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    import('wowjs').then((module) => {
-        const Wow = module.WOW ?? module.default?.WOW;
+    whenNearViewport(wowItems[0], () => {
+        Promise.all([
+            import('wowjs'),
+            import('wowjs/css/libs/animate.css'),
+        ]).then(([wowModule]) => {
+            const Wow = wowModule.WOW ?? wowModule.default?.WOW;
 
-        if (Wow) {
-            new Wow({
-                boxClass: 'wow',
-                animateClass: 'animated',
-                offset: 48,
-                mobile: true,
-                live: false,
-            }).init();
-        }
-    }).catch(() => {});
+            if (Wow) {
+                new Wow({
+                    boxClass: 'wow',
+                    animateClass: 'animated',
+                    offset: 48,
+                    mobile: true,
+                    live: false,
+                }).init();
+            }
+        }).catch(() => {});
+    });
 }
 
 const closeMenu = () => {
@@ -153,16 +185,28 @@ backToTop?.addEventListener('click', () => {
 
 contactForm?.addEventListener('submit', () => {
     if (formNote) {
-        formNote.textContent = 'Opening your email client with the project details.';
+        formNote.textContent = 'Sending your inquiry...';
     }
 });
 
 if (researchVideo) {
-    import('./research-video').then(({ initResearchVideo }) => {
-        initResearchVideo(researchVideo);
-    }).catch(() => {});
     researchVideo.muted = true;
     let isVideoVisible = false;
+    let isVideoLoaded = false;
+
+    const loadResearchVideo = () => {
+        if (isVideoLoaded) {
+            return;
+        }
+
+        isVideoLoaded = true;
+        researchVideo.src = researchVideo.dataset.src;
+        researchVideo.load();
+
+        import('./research-video').then(({ initResearchVideo }) => {
+            initResearchVideo(researchVideo);
+        }).catch(() => {});
+    };
 
     const updateVideoPlayback = () => {
         if (isVideoVisible && !document.hidden) {
@@ -175,12 +219,16 @@ if (researchVideo) {
     if ('IntersectionObserver' in window) {
         const videoObserver = new IntersectionObserver(([entry]) => {
             isVideoVisible = entry.isIntersecting;
+            if (isVideoVisible) {
+                loadResearchVideo();
+            }
             updateVideoPlayback();
-        }, { threshold: 0 });
+        }, { rootMargin: '240px 0px', threshold: 0.01 });
 
         videoObserver.observe(researchVideo);
     } else {
         isVideoVisible = true;
+        loadResearchVideo();
         updateVideoPlayback();
     }
 

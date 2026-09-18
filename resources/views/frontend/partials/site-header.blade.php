@@ -7,7 +7,7 @@
 <header class="site-header" data-header>
     <nav class="nav-shell" aria-label="Primary navigation">
         <a class="brand" href="{{ $sectionUrl('home') }}" aria-label="{{ $profile->name }} portfolio home">
-            <img class="brand-logo" src="{{ asset('assets/images/logo.webp') }}" alt="{{ $profile->name }}" width="1000" height="250" decoding="async">
+            <img class="brand-logo" src="{{ asset('assets/images/logo-520.webp') }}" alt="{{ $profile->name }}" width="520" height="130" decoding="async">
         </a>
 
         <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-menu" data-menu-toggle>
