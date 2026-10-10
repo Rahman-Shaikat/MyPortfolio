@@ -143,6 +143,32 @@ class SeoService
     }
 
     /**
+     * @return array<string, mixed>
+     */
+    public function habitTracker(): array
+    {
+        $title = 'Habit Tracker for Windows | Build Better Routines';
+        $description = 'Plan habits, record daily progress, review monthly history and understand your consistency with a focused Habit Tracker desktop app for Windows.';
+        $canonical = $this->url('habit-tracker');
+
+        $softwareApplication = [
+            '@type' => 'SoftwareApplication',
+            '@id' => $canonical.'#application',
+            'name' => 'Habit Tracker',
+            'applicationCategory' => 'LifestyleApplication',
+            'operatingSystem' => 'Windows',
+            'description' => $description,
+            'url' => $canonical,
+            'author' => ['@id' => $this->personId()],
+        ];
+
+        return $this->page($title, $description, $canonical, $this->graph([
+            $this->webPageEntity($title, $description, $canonical, 'WebPage'),
+            $softwareApplication,
+        ]));
+    }
+
+    /**
      * @param  array<string, mixed>  $structuredData
      * @param  array{0: int, 1: int}|null  $imageDimensions
      * @return array<string, mixed>

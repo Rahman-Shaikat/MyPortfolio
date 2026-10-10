@@ -1,4 +1,4 @@
-@props(['profile', 'seo'])
+@props(['profile', 'seo', 'pageStyles' => []])
 
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
@@ -24,7 +24,7 @@
         />
 
         <x-frontend::favicons />
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @vite(['resources/css/app.css', ...$pageStyles, 'resources/js/app.js'])
     </head>
     <body>
         <a class="skip-link" href="#main">Skip to content</a>

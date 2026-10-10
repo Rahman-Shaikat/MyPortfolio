@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Frontend\ContactController;
+use App\Http\Controllers\Frontend\HabitTrackerController;
 use App\Http\Controllers\Frontend\HomePageController;
 use App\Http\Controllers\Frontend\LlmsController;
 use App\Http\Controllers\Frontend\ProjectController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\Frontend\SitemapController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomePageController::class, 'index'])->name('home');
+Route::get('/habit-tracker', HabitTrackerController::class)->name('habit-tracker');
 Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
 Route::get('/projects/{slug}', [ProjectController::class, 'show'])->name('projects.show');
 Route::get('/research', [ResearchController::class, 'index'])->name('research.index');

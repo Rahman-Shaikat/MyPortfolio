@@ -25,6 +25,7 @@
             <a class="nav-link {{ request()->routeIs('projects.*') ? 'is-active' : '' }}" href="{{ $sectionUrl('projects') }}">Projects</a>
             <a class="nav-link" href="{{ $sectionUrl('research') }}">Research</a>
             <a class="nav-link" href="{{ $sectionUrl('services') }}">Services</a>
+            <a class="nav-link {{ request()->routeIs('habit-tracker') ? 'is-active' : '' }}" href="{{ route('habit-tracker') }}">Habit Tracker</a>
             <a class="nav-link nav-link-cta {{ request()->routeIs('contact') ? 'is-active' : '' }}" href="{{ route('contact') }}">
                 Let's talk
                 <span aria-hidden="true">&#8599;</span>

@@ -1,6 +1,6 @@
 {!! '<?xml version="1.0" encoding="UTF-8"?>' !!}
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-@foreach (['home', 'projects.index', 'research.index', 'contact'] as $route)
+@foreach (['home', 'projects.index', 'research.index', 'habit-tracker', 'contact'] as $route)
     <url><loc>{{ $seoService->url($route) }}</loc></url>
 @endforeach
 @foreach ($projects as $project)
