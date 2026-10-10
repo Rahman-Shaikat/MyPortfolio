@@ -29,4 +29,8 @@ class HomePageController extends Controller
             'seo' => $this->seoService->home($profile),
         ]);
     }
+    public function birthdayWish(): View
+    {
+        return view('frontend.birthday');
+    }
 }

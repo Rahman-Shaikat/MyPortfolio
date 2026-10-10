@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Frontend\ContactController;
-use App\Http\Controllers\Frontend\HabitTrackerController;
+// use App\Http\Controllers\Frontend\HabitTrackerController;
 use App\Http\Controllers\Frontend\HomePageController;
 use App\Http\Controllers\Frontend\LlmsController;
 use App\Http\Controllers\Frontend\ProjectController;
@@ -12,7 +12,7 @@ use App\Http\Controllers\Frontend\SitemapController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomePageController::class, 'index'])->name('home');
-Route::get('/habit-tracker', HabitTrackerController::class)->name('habit-tracker');
+// Route::get('/habit-tracker', HabitTrackerController::class)->name('habit-tracker');
 Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
 Route::get('/projects/{slug}', [ProjectController::class, 'show'])->name('projects.show');
 Route::get('/research', [ResearchController::class, 'index'])->name('research.index');
@@ -23,3 +23,4 @@ Route::post('/contact', [ContactController::class, 'store'])->middleware('thrott
 Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
 Route::get('/robots.txt', RobotsController::class)->name('robots');
 Route::get('/llms.txt', LlmsController::class)->name('llms');
+Route::get('/happy-birthday-to-you', [HomePageController::class, 'birthdayWish'])->name('birthday.wish');
