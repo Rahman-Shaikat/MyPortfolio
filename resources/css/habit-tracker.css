@@ -5,6 +5,9 @@
     --habit-green: #5ca66a;
     --habit-red: #d66552;
     --habit-muted: #65716c;
+    --habit-accent: #d8c59b;
+    --habit-surface: #1b201e;
+    --habit-border: rgba(243, 245, 239, 0.14);
     background: #101715;
     color: var(--habit-white);
     overflow: hidden;
@@ -27,9 +30,12 @@
     letter-spacing: 0;
 }
 
+.habit-page h1 { text-transform: none; }
+.habit-page :focus-visible { outline-color: var(--habit-accent); }
+
 .habit-hero {
     min-height: 100vh;
-    padding: 140px 0 96px;
+    padding: 124px 0 72px;
     border-bottom: 1px solid rgba(167, 232, 206, 0.15);
 }
 
@@ -41,11 +47,11 @@
 }
 
 .habit-product-name {
-    margin-bottom: 26px;
-    color: #a7e8ce;
-    font-size: 1rem;
+    margin-bottom: 20px;
+    color: var(--habit-accent);
+    font-size: 0.9rem;
     font-weight: 750;
-    letter-spacing: 0.12em;
+    letter-spacing: 0;
     text-transform: uppercase;
 }
 
@@ -54,9 +60,9 @@
     margin: 0 auto 28px;
     color: #f3f5ef;
     font-family: Georgia, 'Times New Roman', serif;
-    font-size: min(4.5rem, 8.2vw);
+    font-size: 3.75rem;
     font-weight: 400;
-    line-height: 1.02;
+    line-height: 1.12;
 }
 
 .habit-hero h1 span {
@@ -64,11 +70,32 @@
     white-space: nowrap;
 }
 
+.habit-hero h1 span:last-child {
+    color: var(--habit-accent);
+    font-style: italic;
+}
+
+.habit-preview-caption {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding-top: 18px;
+    color: #b8c0ba;
+    font-size: 0.8rem;
+}
+
+.habit-routine-lede {
+    max-width: 540px;
+    margin: 24px 0 0;
+    color: #b8c0ba;
+    font-size: 1.05rem;
+}
+
 .habit-hero-lede {
-    max-width: 690px;
-    margin: 0 auto 34px;
+    max-width: 580px;
+    margin: 0 auto 24px;
     color: #a8b8b1;
-    font-size: 1.18rem;
+    font-size: 1.05rem;
     line-height: 1.75;
 }
 
@@ -85,8 +112,8 @@
     align-items: center;
     justify-content: center;
     gap: 12px;
-    border: 1px solid rgba(167, 232, 206, 0.35);
-    border-radius: 4px;
+    border: 1px solid var(--habit-border);
+    border-radius: 6px;
     padding: 13px 22px;
     font-size: 0.92rem;
     font-weight: 700;
@@ -103,8 +130,8 @@
 }
 
 .habit-button-primary {
-    border-color: #a7e8ce;
-    background: #a7e8ce;
+    border-color: var(--habit-accent);
+    background: var(--habit-accent);
     color: #101715;
 }
 
@@ -123,18 +150,18 @@
 }
 
 .habit-button-secondary:hover {
-    border-color: #a7e8ce;
-    color: #a7e8ce;
+    border-color: var(--habit-accent);
+    color: var(--habit-accent);
 }
 
 .habit-platform-note {
-    margin: 18px 0 0;
-    color: #7f9189;
+    margin: 28px 0 0;
+    color: #adb4af;
     font-size: 0.78rem;
 }
 
 .habit-app-stage {
-    margin-top: 60px;
+    margin-top: 40px;
     perspective: 1400px;
 }
 
@@ -145,7 +172,7 @@
     background: var(--habit-paper);
     box-shadow: 0 44px 100px rgba(0, 0, 0, 0.42);
     color: var(--habit-ink);
-    transform: rotateX(2deg);
+    transform: none;
     transform-origin: center top;
 }
 
@@ -196,13 +223,13 @@
     display: grid;
     grid-template-columns: 0.85fr 1.35fr 0.9fr;
     gap: 34px;
-    min-height: 610px;
+    min-height: 450px;
     align-items: center;
-    padding: 46px 50px 54px;
+    padding: 32px 40px 40px;
 }
 
 .preview-label {
-    margin-bottom: 60px;
+    margin-bottom: 30px;
     font-size: 0.65rem;
     font-weight: 800;
     letter-spacing: 0.15em;
@@ -219,7 +246,7 @@
 
 .planner-habits h2 {
     margin-bottom: 0;
-    font-size: clamp(2rem, 3.5vw, 3.2rem);
+    font-size: 2.4rem;
     line-height: 1;
 }
 
@@ -285,7 +312,7 @@
 
 .habit-ring-center strong {
     margin-top: 5px;
-    font-size: clamp(0.8rem, 1.7vw, 1.35rem);
+    font-size: 1rem;
 }
 
 .habit-ring-center span {
@@ -296,7 +323,7 @@
 .planner-notes h3 {
     margin-bottom: 34px;
     text-align: center;
-    font-size: clamp(1.5rem, 3vw, 2.6rem);
+    font-size: 1.85rem;
     line-height: 0.92;
 }
 
@@ -319,6 +346,8 @@
     display: block;
     height: 38px;
     border-top: 1px solid rgba(21, 24, 21, 0.55);
+    padding: 8px;
+    font: 0.68rem/1.5 Georgia, serif;
 }
 
 .preview-goals {
@@ -348,12 +377,12 @@
 .habit-routine,
 .habit-purchase,
 .habit-faq {
-    padding: 132px 0;
+    padding: 96px 0;
 }
 
 .habit-problem {
-    background: #a7e8ce;
-    color: #101715;
+    background: var(--habit-surface);
+    color: var(--habit-white);
 }
 
 .habit-problem-grid {
@@ -371,20 +400,20 @@
 .habit-faq h2 {
     margin-bottom: 0;
     font-family: Georgia, 'Times New Roman', serif;
-    font-size: clamp(3rem, 6vw, 5.6rem);
+    font-size: 3.25rem;
     font-weight: 400;
-    line-height: 1;
+    line-height: 1.14;
 }
 
 .habit-problem p {
-    color: #31413b;
+    color: #b8c0ba;
     font-size: 1.08rem;
     line-height: 1.8;
 }
 
 .habit-benefits {
-    background: #f3f5ef;
-    color: #101715;
+    background: #101715;
+    color: var(--habit-white);
 }
 
 .habit-section-heading {
@@ -392,28 +421,28 @@
     grid-template-columns: 0.65fr 1.35fr;
     gap: 60px;
     align-items: start;
-    margin-bottom: 94px;
+    margin-bottom: 56px;
 }
 
 .habit-section-heading > p,
 .habit-feature-copy > p:first-child,
-.habit-purchase-inner > div > p {
-    color: #47665a;
+.habit-purchase-inner > div:first-child > p {
+    color: var(--habit-accent);
     font-size: 0.76rem;
     font-weight: 800;
-    letter-spacing: 0.13em;
+    letter-spacing: 0;
     text-transform: uppercase;
 }
 
 .habit-benefit-list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    border-top: 1px solid rgba(16, 23, 21, 0.25);
+    border-top: 1px solid var(--habit-border);
 }
 
 .habit-benefit-list article {
     min-height: 280px;
-    border-right: 1px solid rgba(16, 23, 21, 0.25);
+    border-right: 1px solid var(--habit-border);
     padding: 30px 34px 0 0;
 }
 
@@ -427,14 +456,14 @@
 
 .habit-benefit-list span,
 .habit-steps span {
-    color: #5d726a;
+    color: var(--habit-accent);
     font-family: Georgia, serif;
     font-size: 0.9rem;
 }
 
 .habit-benefit-list h3,
 .habit-steps h3 {
-    margin: 70px 0 14px;
+    margin: 40px 0 14px;
     color: inherit;
     font-family: Georgia, serif;
     font-size: 1.65rem;
@@ -444,7 +473,7 @@
 
 .habit-benefit-list p,
 .habit-steps p {
-    color: #58655f;
+    color: #b8c0ba;
     line-height: 1.7;
 }
 
@@ -454,14 +483,14 @@
 }
 
 .habit-feature-light {
-    background: #a7e8ce;
-    color: #101715;
+    background: var(--habit-surface);
+    color: var(--habit-white);
 }
 
 .habit-feature-grid {
     display: grid;
     grid-template-columns: 0.75fr 1.25fr;
-    gap: 92px;
+    gap: 72px;
     align-items: center;
 }
 
@@ -475,7 +504,7 @@
 
 .habit-feature-copy h2 {
     margin-bottom: 28px;
-    font-size: clamp(3rem, 5vw, 4.9rem);
+    font-size: 3rem;
 }
 
 .habit-feature-copy > p:not(:first-child) {
@@ -485,7 +514,7 @@
 }
 
 .habit-feature-light .habit-feature-copy > p:not(:first-child) {
-    color: #31413b;
+    color: #b8c0ba;
 }
 
 .habit-feature-copy ul {
@@ -501,18 +530,19 @@
 }
 
 .habit-feature-light .habit-feature-copy li {
-    border-color: rgba(16, 23, 21, 0.2);
-    color: #26332e;
+    border-color: var(--habit-border);
+    color: #d9e0dc;
 }
 
 .habit-feature-visual {
     min-width: 0;
-    border-radius: 4px;
+    border-radius: 8px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
 }
 
 .ring-detail {
     display: grid;
-    min-height: 620px;
+    min-height: 440px;
     place-items: center;
     background: #f4f2e9;
     padding: 60px;
@@ -520,18 +550,6 @@
 
 .detail-ring {
     width: min(100%, 520px);
-}
-
-.detail-ring::before {
-    position: absolute;
-    z-index: 2;
-    top: 13%;
-    right: 3%;
-    width: 22%;
-    height: 18%;
-    background: var(--habit-red);
-    content: '';
-    clip-path: polygon(15% 0, 100% 42%, 86% 100%, 0 61%);
 }
 
 .detail-ring span,
@@ -667,8 +685,8 @@
 }
 
 .habit-routine {
-    background: #f3f5ef;
-    color: #101715;
+    background: var(--habit-surface);
+    color: var(--habit-white);
 }
 
 .habit-routine h2 {
@@ -678,13 +696,13 @@
 .habit-steps {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    margin-top: 88px;
-    border-top: 1px solid rgba(16, 23, 21, 0.25);
+    margin-top: 56px;
+    border-top: 1px solid var(--habit-border);
 }
 
 .habit-steps article {
     min-height: 240px;
-    border-right: 1px solid rgba(16, 23, 21, 0.25);
+    border-right: 1px solid var(--habit-border);
     padding: 28px 34px 0 0;
 }
 
@@ -713,7 +731,7 @@
 }
 
 .habit-purchase h2 {
-    font-size: clamp(4rem, 7vw, 6.8rem);
+    font-size: 4rem;
 }
 
 .habit-purchase-action > p {
@@ -731,7 +749,7 @@
 
 .habit-purchase-action small {
     margin-top: 14px;
-    color: #74877f;
+    color: #adb4af;
 }
 
 .habit-faq {
@@ -745,7 +763,7 @@
 }
 
 .habit-faq h2 {
-    font-size: clamp(3rem, 5vw, 4.9rem);
+    font-size: 3rem;
 }
 
 .habit-faq details {
@@ -770,11 +788,20 @@
     display: none;
 }
 
+.habit-faq summary:focus-visible {
+    outline: 2px solid var(--habit-accent);
+    outline-offset: 4px;
+}
+
+.habit-faq summary:hover {
+    color: var(--habit-accent);
+}
+
 .habit-faq summary::after {
     position: absolute;
     top: 22px;
     right: 4px;
-    color: #a7e8ce;
+    color: var(--habit-accent);
     content: '+';
     font-family: ui-sans-serif, sans-serif;
     font-size: 1.5rem;
@@ -820,7 +847,7 @@
     }
 
     .habit-hero h1 {
-        font-size: min(2.7rem, 8.2vw);
+        font-size: 2.25rem;
     }
 
     .habit-hero-lede {
@@ -891,7 +918,7 @@
     .habit-routine h2,
     .habit-purchase h2,
     .habit-faq h2 {
-        font-size: clamp(2.8rem, 13vw, 4.4rem);
+        font-size: 2.5rem;
     }
 
     .habit-section-heading {
@@ -909,7 +936,7 @@
     .habit-steps article + article {
         min-height: 0;
         border-right: 0;
-        border-bottom: 1px solid rgba(16, 23, 21, 0.2);
+        border-bottom: 1px solid var(--habit-border);
         padding: 28px 0 34px;
     }
 
@@ -963,4 +990,11 @@
     .habit-button:hover {
         transform: none;
     }
+}
+
+@media (max-width: 380px) {
+    .habit-hero h1 { font-size: 1.85rem; }
+    .habit-preview-caption { flex-direction: column; gap: 4px; }
+    .history-row > strong { padding-left: 42px; font-size: 0.85rem; }
+    .history-row > b { font-size: 1.8rem; }
 }

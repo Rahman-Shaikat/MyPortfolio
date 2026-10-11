@@ -4,7 +4,7 @@
             <div class="habit-container habit-hero-copy">
                 <p class="habit-product-name">Habit Tracker</p>
                 <h1 id="habit-hero-title"><span>Build the routines</span><span>that build your life.</span></h1>
-                <p class="habit-hero-lede">A calm, focused Windows desktop app for turning intentions into visible progress. Plan your month, mark each day, and keep showing up.</p>
+                <p class="habit-hero-lede">Read a little. Move a little. Make time for what matters. Turn your daily intentions into a month of visible progress.</p>
                 <div class="habit-actions">
                     <a class="habit-button habit-button-primary" href="#purchase">
                         Purchase for Windows
@@ -12,7 +12,7 @@
                     </a>
                     <a class="habit-button habit-button-secondary" href="#features">Explore the app</a>
                 </div>
-                <p class="habit-platform-note">Designed for Windows 10 and 11</p>
+                <p class="habit-platform-note">Currently available for Windows 10 and 11</p>
             </div>
 
             <div class="habit-container habit-app-stage" aria-label="Habit Tracker monthly planner preview">
@@ -37,20 +37,21 @@
                         </div>
                         <div class="planner-notes">
                             <h3>MONTHLY<br>PLANNING</h3>
-                            <div class="preview-note-sheet"><strong>OBSERVATIONS</strong><span></span><span></span><span></span></div>
+                            <div class="preview-note-sheet"><strong>OBSERVATIONS</strong><span>A morning walk makes a difference.</span><span>Consistency over perfection.</span><span>Make room for a little reading.</span></div>
                             <div class="preview-goals"><strong>KEY GOALS</strong><div><span>Move every day</span><span>Finish two books</span><span>Protect my mornings</span></div></div>
                         </div>
                     </div>
                 </div>
+                <div class="habit-preview-caption"><span>Your habits. Your goals. One clear view.</span><span>Made for your Windows desktop</span></div>
             </div>
         </section>
 
         <section class="habit-problem" aria-labelledby="habit-problem-title">
             <div class="habit-container habit-problem-grid">
-                <h2 id="habit-problem-title">Busy is not the same as moving forward.</h2>
+                <h2 id="habit-problem-title">Make room for the person you want to become.</h2>
                 <div>
                     <p>Scattered notes and forgotten resolutions make progress hard to see. Habit Tracker gives every month one clear place for the routines that matter.</p>
-                    <p>No feeds. No noise. Just a simple daily practice that turns consistency into something you can see, understand, and improve.</p>
+                    <p>You do not need a perfect month. You need a clear next step, a place to start again, and a reminder that small efforts count.</p>
                 </div>
             </div>
         </section>
@@ -122,6 +123,7 @@
         <section class="habit-routine" aria-labelledby="habit-routine-title">
             <div class="habit-container">
                 <h2 id="habit-routine-title">A better routine should feel simple.</h2>
+                <p class="habit-routine-lede">A quiet moment at your desk. A small promise to yourself. A little more intention in your day.</p>
                 <div class="habit-steps">
                     <article><span>1</span><h3>Choose</h3><p>Set a small number of meaningful habits for the month.</p></article>
                     <article><span>2</span><h3>Show up</h3><p>Mark each day in seconds and keep your priorities close.</p></article>
@@ -151,7 +153,7 @@
                     <details><summary>Who is Habit Tracker for?</summary><p>It is for anyone who wants a deliberate, visual system for building routines without the noise of an overcomplicated productivity suite.</p></details>
                     <details><summary>Which devices does it support?</summary><p>Habit Tracker is designed as a Windows desktop application for Windows 10 and 11.</p></details>
                     <details><summary>What can I track?</summary><p>You can plan daily habits, record completion or missed days, write monthly observations, set key goals, and review progress over time.</p></details>
-                    <details><summary>How do I purchase a license?</summary><p>Use the purchase button to send your request. Checkout and license delivery will be connected in the next release stage.</p></details>
+                    <details><summary>How do I purchase a license?</summary><p>Use the purchase button to get in touch about a Windows license, pricing, and availability.</p></details>
                 </div>
             </div>
         </section>
