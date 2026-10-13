@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminLoginController;
+use App\Http\Controllers\Admin\HabitTrackerPageController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\PublicationController;
@@ -19,4 +20,6 @@ Route::prefix('admin')->name('admin.')->middleware('admin.session')->group(funct
     Route::patch('/projects/reorder', [ProjectController::class, 'reorder'])->name('projects.reorder');
     Route::resource('projects', ProjectController::class)->except('show');
     Route::resource('publications', PublicationController::class)->except('show');
+    Route::get('/habit-tracker/page-info', [HabitTrackerPageController::class, 'edit'])->name('habit-tracker.edit');
+    Route::put('/habit-tracker/page-info', [HabitTrackerPageController::class, 'update'])->name('habit-tracker.update');
 });

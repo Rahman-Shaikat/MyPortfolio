@@ -55,6 +55,9 @@
                 </a>
             </li>
             <li class="nav-item">
+                @include('admin.partials.habit-tracker-menu', ['menuId' => 'habitTrackerDesktopMenu'])
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="{{ route('home') }}#contact">
                     <span class="nav-icon"><i class="ti ti-mail fs-5"></i></span>
                     <span class="text">Messages</span>
@@ -88,6 +91,7 @@
             <a class="nav-link {{ request()->routeIs('admin.profiles.*') ? 'active' : '' }}" href="{{ route('admin.profiles.index') }}">Profile</a>
             <a class="nav-link {{ request()->routeIs('admin.projects.*') ? 'active' : '' }}" href="{{ route('admin.projects.index') }}">Projects</a>
             <a class="nav-link {{ request()->routeIs('admin.publications.*') ? 'active' : '' }}" href="{{ route('admin.publications.index') }}">Publications</a>
+            @include('admin.partials.habit-tracker-menu', ['menuId' => 'habitTrackerMobileMenu'])
             <a class="nav-link" href="{{ route('home') }}">View Site</a>
         </div>
     </div>

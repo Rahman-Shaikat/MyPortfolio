@@ -1,8 +1,3 @@
-const prices = {
-    USD: { offer: '$5', regular: '$15', regularFull: '$15.00', decimals: '.00', discount: '67% OFF', currency: 'USD' },
-    BDT: { offer: '\u09f3500', regular: '\u09f31,800', regularFull: '\u09f31,800', decimals: '', discount: '72% OFF', currency: 'BDT' },
-};
-
 export function initHabitPricing() {
     const page = document.querySelector('[data-habit-pricing]');
     if (!page) {
@@ -10,6 +5,7 @@ export function initHabitPricing() {
     }
 
     const selector = page.querySelector('.habit-currency');
+    const prices = JSON.parse(page.dataset.prices);
     const updatePrices = (currency) => {
         const price = prices[currency];
         if (!price) {
