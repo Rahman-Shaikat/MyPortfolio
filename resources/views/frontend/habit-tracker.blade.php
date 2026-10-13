@@ -1,5 +1,5 @@
 <x-frontend::layout :profile="$profile" :seo="$seo" :page-styles="['resources/css/habit-tracker.css']">
-    <article class="habit-page">
+    <article class="habit-page" data-habit-pricing>
         <section class="habit-hero" aria-labelledby="habit-hero-title">
             <div class="habit-container habit-hero-copy">
                 <p class="habit-product-name">Habit Tracker</p>
@@ -12,6 +12,7 @@
                     </a>
                     <a class="habit-button habit-button-secondary" href="#features">Explore the app</a>
                 </div>
+                <a class="habit-launch-note" href="#purchase"><span>Launch special</span> <strong data-habit-price="offer">$5</strong> <span>instead of <s data-habit-price="regular">$15</s> &middot; One-time payment</span></a>
                 <p class="habit-platform-note">Currently available for Windows 10 and 11</p>
             </div>
 
@@ -132,17 +133,72 @@
             </div>
         </section>
 
+        <section class="habit-demo" id="demo" aria-labelledby="habit-demo-title">
+            <div class="habit-container">
+                <div class="habit-demo-heading">
+                    <div>
+                        <p class="habit-demo-label">A closer look</p>
+                        <h2 id="habit-demo-title">See your routine<br>come to life.</h2>
+                    </div>
+                    <p>Take a moment to explore a more intentional day. Watch the video, then make room for the habits that matter to you.</p>
+                </div>
+                <figure class="habit-demo-media">
+                    <div class="habit-demo-player">
+                        <iframe
+                            src="https://www.youtube-nocookie.com/embed/_N37glNeUms?playsinline=1&rel=0"
+                            title="Habit Tracker video preview"
+                            width="1280"
+                            height="720"
+                            loading="lazy"
+                            referrerpolicy="strict-origin-when-cross-origin"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen
+                        ></iframe>
+                    </div>
+                    <figcaption>
+                        <span>A little intention. A little progress. Every day.</span>
+                        <a href="https://www.youtube.com/watch?v=_N37glNeUms" target="_blank" rel="noopener noreferrer">Watch on YouTube<span class="sr-only"> (opens in a new tab)</span></a>
+                    </figcaption>
+                </figure>
+            </div>
+        </section>
+
         <section class="habit-purchase" id="purchase" aria-labelledby="habit-purchase-title">
             <div class="habit-container habit-purchase-inner">
-                <div>
-                    <p>Habit Tracker for Windows</p>
-                    <h2 id="habit-purchase-title">Small actions.<br>Lasting change.</h2>
+                <div class="habit-offer-copy">
+                    <p>Habit Tracker for Windows &middot; Launch special</p>
+                    <h2 id="habit-purchase-title">Better habits.<br>One small investment.</h2>
+                    <div class="habit-offer-description">Be among our first 100 customers and unlock Habit Tracker for just <span data-habit-price="offer">$5</span> instead of <span data-habit-price="regular">$15</span>. Pay once, enjoy your app without recurring fees.</div>
+                    <ul class="habit-offer-benefits">
+                        <li>Plan your month and track daily habits</li>
+                        <li>Review your history and progress</li>
+                        <li>Keep your routine going offline</li>
+                    </ul>
                 </div>
-                <div class="habit-purchase-action">
-                    <p>A focused desktop companion for planning deliberately and building consistency one day at a time.</p>
-                    <a class="habit-button habit-button-primary" href="{{ route('contact') }}?interest=habit-tracker">Purchase for Windows <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M10 5l5 5-5 5"/></svg></a>
+                <section class="habit-purchase-action" aria-labelledby="habit-offer-title">
+                    <div class="habit-offer-header">
+                        <h3 id="habit-offer-title">Your Windows app</h3>
+                        <span class="habit-discount-badge" data-habit-price="discount">67% OFF</span>
+                    </div>
+                    <fieldset class="habit-currency" hidden>
+                        <legend>Choose your region</legend>
+                        <div class="habit-currency-options">
+                            <label><input type="radio" name="habit-currency" value="BDT"><span>Bangladesh <small>BDT</small></span></label>
+                            <label><input type="radio" name="habit-currency" value="USD" checked><span>International <small>USD</small></span></label>
+                        </div>
+                    </fieldset>
+                    <noscript><p>Bangladesh: BDT 500 launch price, normally BDT 1,800 (72% off).</p></noscript>
+                    <div class="habit-offer-price" aria-live="polite" aria-atomic="true">
+                        <span class="sr-only">Launch price:</span><strong><span class="habit-price-whole" data-habit-price="offer">$5</span><span data-habit-price="decimals">.00</span></strong>
+                        <span class="habit-original-price"><span class="sr-only">Original price:</span><s data-habit-price="regularFull">$15.00</s><small data-habit-price="currency">USD</small></span>
+                    </div>
+                    <p class="habit-payment-note">One-time payment. No subscription.</p>
+                    <p class="habit-offer-limit">Limited to the First 100 Customers</p>
+                    <a class="habit-button habit-button-primary" href="{{ route('contact', ['interest' => 'habit-tracker']) }}"><span>Get Habit Tracker for <span data-habit-price="offer">$5</span></span> <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M10 5l5 5-5 5"/></svg></a>
+                    <p class="habit-purchase-help">Opens a purchase inquiry. No payment is taken here.</p>
+                    <div class="habit-offer-terms">Launch pricing applies to the first 100 successfully paid, eligible purchases. Standard price after the offer: <span data-habit-price="regularFull">$15.00</span>.</div>
                     <small>Windows 10 and 11 compatible</small>
-                </div>
+                </section>
             </div>
         </section>
 

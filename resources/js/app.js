@@ -1,4 +1,7 @@
 import { initContactPrompts } from './contact-prompts';
+import { initHabitPricing } from './habit-pricing';
+
+initHabitPricing();
 
 document.documentElement.classList.add('js');
 

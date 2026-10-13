@@ -160,6 +160,23 @@
     font-size: 0.78rem;
 }
 
+.habit-launch-note {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: center;
+    gap: 6px;
+    width: fit-content;
+    max-width: 100%;
+    margin: 20px auto 0;
+    color: #b8c0ba;
+    font-size: 0.82rem;
+    transition: color 200ms ease;
+}
+
+.habit-launch-note strong { color: var(--habit-accent); }
+.habit-launch-note:hover { color: var(--habit-white); }
+
 .habit-app-stage {
     margin-top: 40px;
     perspective: 1400px;
@@ -719,37 +736,178 @@
     font-size: 2rem;
 }
 
+.habit-demo {
+    padding: 96px 0;
+    border-bottom: 1px solid var(--habit-border);
+}
+
+.habit-demo-heading {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    align-items: end;
+    gap: 64px;
+    margin-bottom: 36px;
+}
+
+.habit-demo-label {
+    margin-bottom: 16px;
+    color: var(--habit-accent);
+    font-size: 0.76rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.habit-demo-heading h2 {
+    margin: 0;
+    font: 400 3.25rem/1.14 Georgia, 'Times New Roman', serif;
+}
+
+.habit-demo-heading > p {
+    max-width: 400px;
+    margin: 0 0 4px;
+    color: #b8c0ba;
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
+.habit-demo-media { margin: 0; }
+
+.habit-demo-player {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border: 1px solid var(--habit-border);
+    border-radius: 8px;
+    background: #080b0a;
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.2);
+    transition: border-color 200ms ease;
+}
+
+.habit-demo-player:hover,
+.habit-demo-player:focus-within { border-color: var(--habit-accent); }
+
+.habit-demo-player iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.habit-demo-media figcaption {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px 24px;
+    padding-top: 18px;
+    color: #adb4af;
+    font-size: 0.8rem;
+}
+
+.habit-demo-media figcaption a {
+    color: var(--habit-accent);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.habit-demo-media figcaption a:hover { color: var(--habit-white); }
+
+@media (max-width: 760px) {
+    .habit-demo { padding: 72px 0; }
+    .habit-demo-heading { grid-template-columns: 1fr; gap: 24px; margin-bottom: 28px; }
+    .habit-demo-heading h2 { font-size: 2.5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .habit-demo-player { transition: none; }
+}
+
 .habit-purchase {
     background: #101715;
 }
 
 .habit-purchase-inner {
     display: grid;
-    grid-template-columns: 1.15fr 0.85fr;
-    gap: 100px;
-    align-items: end;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: 64px;
+    align-items: center;
 }
 
 .habit-purchase h2 {
     font-size: 4rem;
 }
 
-.habit-purchase-action > p {
-    margin-bottom: 32px;
-    color: #a8b8b1;
+.habit-offer-description {
+    max-width: 510px;
+    margin-top: 26px;
+    color: #b8c0ba;
     font-size: 1.05rem;
-    line-height: 1.75;
+    line-height: 1.8;
 }
 
 .habit-purchase-action {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    min-width: 0;
+    border: 1px solid var(--habit-border);
+    border-top: 2px solid var(--habit-accent);
+    border-radius: 8px;
+    background: var(--habit-surface);
+    padding: 32px;
 }
 
-.habit-purchase-action small {
+.habit-purchase-action > small {
     margin-top: 14px;
     color: #adb4af;
+}
+
+.habit-offer-benefits {
+    display: grid;
+    gap: 14px;
+    margin: 28px 0 0;
+    padding-left: 20px;
+    color: #d9e0dc;
+    font-size: 0.95rem;
+}
+
+.habit-offer-benefits li::marker { color: var(--habit-accent); }
+.habit-offer-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
+.habit-offer-header h3 { margin: 0; font-size: 1rem; font-weight: 600; }
+.habit-discount-badge { border: 1px solid #766d58; border-radius: 4px; padding: 4px 9px; color: var(--habit-accent); font-size: 0.75rem; font-weight: 700; }
+.habit-offer-price { display: flex; flex-wrap: wrap; align-items: center; gap: 20px; margin-top: 26px; font-variant-numeric: tabular-nums; }
+.habit-offer-price > strong { color: var(--habit-white); font-size: 5rem; font-weight: 500; line-height: 1.1; }
+.habit-offer-price > strong > span:not(.habit-price-whole) { font-size: 2.5rem; }
+.habit-currency { min-width: 0; margin: 24px 0 0; padding: 0; border: 0; }
+.habit-currency legend { margin-bottom: 10px; color: #b8c0ba; font-size: .8rem; }
+.habit-currency-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; padding: 4px; border: 1px solid var(--habit-border); border-radius: 6px; }
+.habit-currency label { position: relative; min-width: 0; cursor: pointer; }
+.habit-currency input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.habit-currency label > span { display: flex; flex-direction: column; justify-content: center; gap: 2px; min-height: 52px; padding: 8px 4px; border-radius: 3px; text-align: center; color: var(--habit-white); font-size: .8rem; transition: background-color 200ms, color 200ms; }
+.habit-currency small { font-size: .65rem; }
+.habit-currency label:hover > span { background: rgba(216, 197, 155, .1); }
+.habit-currency input:checked + span { background: var(--habit-accent); color: #101715; }
+.habit-currency input:focus-visible + span { outline: 2px solid var(--habit-white); outline-offset: 3px; }
+.habit-page[data-currency="BDT"] .habit-offer-price > strong { font-size: 3.5rem; }
+@media (prefers-reduced-motion: reduce) {
+    .habit-currency label > span { transition: none; }
+}
+.habit-original-price { display: grid; gap: 4px; color: #b8c0ba; font-size: 1.25rem; }
+.habit-original-price small { font-size: 0.7rem; }
+.habit-purchase-action .habit-payment-note { margin: 14px 0 24px; color: #d9e0dc; font-size: 0.9rem; }
+.habit-purchase-action .habit-offer-limit { margin: 0 0 20px; border-top: 1px solid var(--habit-border); padding-top: 20px; color: var(--habit-accent); font-size: 0.88rem; }
+.habit-purchase-action .habit-button { width: 100%; text-align: center; }
+.habit-purchase-action .habit-button svg { flex-shrink: 0; }
+.habit-purchase-action .habit-purchase-help { margin: 14px 0 24px; color: #b8c0ba; text-align: center; font-size: 0.76rem; line-height: 1.6; }
+.habit-offer-terms { border-top: 1px solid var(--habit-border); padding-top: 20px; color: #adb4af; font-size: 0.78rem; line-height: 1.7; }
+
+@media (min-width: 761px) and (max-width: 1080px) {
+    .habit-purchase-inner { gap: 32px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .habit-purchase h2 { font-size: 3rem; }
+    .habit-purchase-action { padding: 24px; }
+}
+
+@media (max-width: 480px) {
+    .habit-purchase-action { padding: 24px 20px; }
+    .habit-offer-price > strong { font-size: 4.5rem; }
 }
 
 .habit-faq {
