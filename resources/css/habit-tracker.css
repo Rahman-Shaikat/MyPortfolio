@@ -556,13 +556,17 @@
     width: 100%;
     min-width: 0;
     height: auto;
-    aspect-ratio: 3 / 2;
-    object-fit: contain;
+    border: 1px solid rgba(16, 23, 21, 0.7);
     border-radius: 8px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
     align-self: center;
 }
 
-.habit-uploaded-hero { aspect-ratio: 8 / 5; }
+.habit-uploaded-hero {
+    border-color: rgba(167, 232, 206, 0.24);
+    border-radius: 6px;
+    box-shadow: 0 44px 100px rgba(0, 0, 0, 0.42);
+}
 
 .habit-feature-visual {
     min-width: 0;
