@@ -24,7 +24,7 @@ class UpdateHabitTrackerPageRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'video_url' => ['bail', 'required', 'string', 'url:https', 'max:2048', function (string $attribute, mixed $value, Closure $fail): void {
+            'video_url' => ['bail', 'nullable', 'string', 'url:https', 'max:2048', function (string $attribute, mixed $value, Closure $fail): void {
                 if (HabitTrackerPage::youtubeId($value) === null) {
                     $fail('Enter a valid YouTube video URL (watch, share, shorts, or embed link).');
                 }

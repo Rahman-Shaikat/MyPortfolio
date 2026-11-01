@@ -25,7 +25,7 @@ class HabitTrackerPage extends Model
     ];
 
     protected $attributes = [
-        'video_url' => 'https://youtu.be/_N37glNeUms',
+        'video_url' => null,
         'usd_regular_price' => '15.00', 'usd_offer_price' => '5.00',
         'bdt_regular_price' => '1800.00', 'bdt_offer_price' => '500.00',
     ];
@@ -38,8 +38,12 @@ class HabitTrackerPage extends Model
         ];
     }
 
-    public static function youtubeId(string $url): ?string
+    public static function youtubeId(?string $url): ?string
     {
+        if (blank($url)) {
+            return null;
+        }
+
         $parts = parse_url($url);
         if (! is_array($parts) || ! in_array(strtolower($parts['scheme'] ?? ''), ['http', 'https'], true)) {
             return null;
@@ -61,9 +65,11 @@ class HabitTrackerPage extends Model
         return is_string($id) && preg_match('/^[A-Za-z0-9_-]{11}$/', $id) ? $id : null;
     }
 
-    public function videoEmbedUrl(): string
+    public function videoEmbedUrl(): ?string
     {
-        return 'https://www.youtube-nocookie.com/embed/'.self::youtubeId($this->video_url).'?playsinline=1&rel=0';
+        $videoId = self::youtubeId($this->video_url);
+
+        return $videoId === null ? null : 'https://www.youtube-nocookie.com/embed/'.$videoId.'?playsinline=1&rel=0';
     }
 
     /** @return array<string, array<string, string>> */

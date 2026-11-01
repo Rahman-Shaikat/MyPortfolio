@@ -38,10 +38,10 @@
         <div class="card mb-5">
             <div class="card-body">
                 <h3 class="fs-4 mb-4">Video Demo</h3>
-                <label for="video_url" class="form-label">YouTube video link</label>
-                <input id="video_url" name="video_url" type="url" required maxlength="2048" class="form-control @error('video_url') is-invalid @enderror" value="{{ old('video_url', $pageInfo->video_url) }}" aria-describedby="video-url-help">
+                <label for="video_url" class="form-label">YouTube video link (optional)</label>
+                <input id="video_url" name="video_url" type="url" maxlength="2048" class="form-control @error('video_url') is-invalid @enderror" value="{{ old('video_url', $pageInfo->video_url) }}" aria-describedby="video-url-help">
                 @error('video_url')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                <div id="video-url-help" class="form-text">Use an HTTPS YouTube share, watch, shorts, or embed link. The video must allow embedding.</div>
+                <div id="video-url-help" class="form-text">Leave blank to hide the video section. Otherwise, use an HTTPS YouTube share, watch, shorts, or embed link that allows embedding.</div>
             </div>
         </div>
         <div class="card mb-5">

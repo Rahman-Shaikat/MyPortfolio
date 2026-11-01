@@ -149,6 +149,7 @@
             </div>
         </section>
 
+        @if ($videoEmbedUrl = $pageInfo->videoEmbedUrl())
         <section class="habit-demo" id="demo" aria-labelledby="habit-demo-title">
             <div class="habit-container">
                 <div class="habit-demo-heading">
@@ -161,7 +162,7 @@
                 <figure class="habit-demo-media">
                     <div class="habit-demo-player">
                         <iframe
-                            src="{{ $pageInfo->videoEmbedUrl() }}"
+                            src="{{ $videoEmbedUrl }}"
                             title="Habit Tracker video preview"
                             width="1280"
                             height="720"
@@ -178,6 +179,8 @@
                 </figure>
             </div>
         </section>
+
+        @endif
 
         <section class="habit-purchase" id="purchase" aria-labelledby="habit-purchase-title">
             <div class="habit-container habit-purchase-inner">

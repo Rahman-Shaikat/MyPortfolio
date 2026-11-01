@@ -94,9 +94,44 @@ test('frontend renders saved media and both currencies without hardcoded prices'
     expect($page->displayPrices()['USD']['decimals'])->toBe('');
 });
 
-test('supported youtube links normalize to a safe video id', function (string $url, ?string $id) {
+test('empty videos hide the entire demo section', function (?string $url) {
+    $page = HabitTrackerPage::factory()->create(['video_url' => $url]);
+
+    expect($page->videoEmbedUrl())->toBeNull();
+    $this->get(route('habit-tracker'))->assertSuccessful()
+        ->assertDontSee('id="demo"', false)
+        ->assertDontSee('Watch on YouTube');
+})->with([null, '', '   ']);
+
+test('admin can clear and restore a video link', function () {
+    $page = HabitTrackerPage::factory()->create();
+
+    $this->withSession(['admin_authenticated' => true])
+        ->put(route('admin.habit-tracker.update'), habitPagePayload(['video_url' => '']))
+        ->assertSessionHasNoErrors();
+    expect($page->refresh()->video_url)->toBeNull();
+
+    $this->put(route('admin.habit-tracker.update'), habitPagePayload())->assertSessionHasNoErrors();
+    expect($page->refresh()->videoEmbedUrl())->not->toBeNull();
+    $this->get(route('habit-tracker'))->assertSuccessful()->assertSee('id="demo"', false);
+});
+
+test('omitting a video field preserves its saved value', function () {
+    $page = HabitTrackerPage::factory()->create();
+    $url = $page->video_url;
+    $payload = habitPagePayload();
+    unset($payload['video_url']);
+
+    $this->withSession(['admin_authenticated' => true])
+        ->put(route('admin.habit-tracker.update'), $payload)->assertSessionHasNoErrors();
+    expect($page->refresh()->video_url)->toBe($url);
+});
+
+test('supported youtube links normalize to a safe video id', function (?string $url, ?string $id) {
     expect(HabitTrackerPage::youtubeId($url))->toBe($id);
 })->with([
+    [null, null],
+    ['', null],
     ['https://youtu.be/_N37glNeUms?si=test', '_N37glNeUms'],
     ['https://www.youtube.com/watch?v=_N37glNeUms&feature=share', '_N37glNeUms'],
     ['https://youtube.com/shorts/_N37glNeUms', '_N37glNeUms'],
