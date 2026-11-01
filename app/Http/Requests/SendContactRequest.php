@@ -29,6 +29,7 @@ class SendContactRequest extends FormRequest
             'project_type' => [
                 'required',
                 Rule::in([
+                    'Habit Tracker purchase',
                     'Laravel application',
                     'API or integration',
                     'eCommerce',

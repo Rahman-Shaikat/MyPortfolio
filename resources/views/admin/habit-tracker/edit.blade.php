@@ -62,7 +62,7 @@
                         </fieldset>
                     @endforeach
                 </div>
-                <p class="form-text mb-0">Discount percentages are calculated automatically. These prices update the product page; purchases currently use the existing inquiry flow.</p>
+                <p class="form-text mb-0">Discount percentages are calculated automatically. New purchase forms use these offer prices; existing submitted orders keep their recorded amounts. Configure bank/bKash instructions in Payment Settings.</p>
             </div>
         </div>
         <button type="submit" class="btn btn-primary"><i class="ti ti-device-floppy me-2" aria-hidden="true"></i>Save Page Info</button>

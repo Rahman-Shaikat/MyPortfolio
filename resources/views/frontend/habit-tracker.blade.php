@@ -6,7 +6,7 @@
                 <h1 id="habit-hero-title"><span>Build the routines</span><span>that build your life.</span></h1>
                 <p class="habit-hero-lede">Read a little. Move a little. Make time for what matters. Turn your daily intentions into a month of visible progress.</p>
                 <div class="habit-actions">
-                    <a class="habit-button habit-button-primary" href="#purchase">
+                    <a class="habit-button habit-button-primary" data-habit-purchase href="{{ route('habit-tracker.purchase', ['currency' => 'USD']) }}">
                         Purchase for Windows
                         <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M10 5l5 5-5 5"/></svg>
                     </a>
@@ -184,7 +184,7 @@
                 <div class="habit-offer-copy">
                     <p>Habit Tracker for Windows &middot; Launch special</p>
                     <h2 id="habit-purchase-title">Better habits.<br>One small investment.</h2>
-                    <div class="habit-offer-description">Be among our first 100 customers and unlock Habit Tracker for just <span data-habit-price="offer">{{ $prices['USD']['offer'] }}</span> instead of <span data-habit-price="regular">{{ $prices['USD']['regular'] }}</span>. Pay once, enjoy your app without recurring fees.</div>
+                    <div class="habit-offer-description">Get Habit Tracker for just <span data-habit-price="offer">{{ $prices['USD']['offer'] }}</span> instead of <span data-habit-price="regular">{{ $prices['USD']['regular'] }}</span>. Pay once, enjoy your app without recurring fees.</div>
                     <ul class="habit-offer-benefits">
                         <li>Plan your month and track daily habits</li>
                         <li>Review your history and progress</li>
@@ -209,10 +209,9 @@
                         <span class="habit-original-price"><span class="sr-only">Original price:</span><s data-habit-price="regularFull">{{ $prices['USD']['regularFull'] }}</s><small data-habit-price="currency">USD</small></span>
                     </div>
                     <p class="habit-payment-note">One-time payment. No subscription.</p>
-                    <p class="habit-offer-limit">Limited to the First 100 Customers</p>
-                    <a class="habit-button habit-button-primary" href="{{ route('contact', ['interest' => 'habit-tracker']) }}"><span>Get Habit Tracker for <span data-habit-price="offer">{{ $prices['USD']['offer'] }}</span></span> <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M10 5l5 5-5 5"/></svg></a>
-                    <p class="habit-purchase-help">Opens a purchase inquiry. No payment is taken here.</p>
-                    <div class="habit-offer-terms">Launch pricing applies to the first 100 successfully paid, eligible purchases. Standard price after the offer: <span data-habit-price="regularFull">{{ $prices['USD']['regularFull'] }}</span>.</div>
+                    <a class="habit-button habit-button-primary" data-habit-purchase href="{{ route('habit-tracker.purchase', ['currency' => 'USD']) }}"><span>Get Habit Tracker for <span data-habit-price="offer">{{ $prices['USD']['offer'] }}</span></span> <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M10 5l5 5-5 5"/></svg></a>
+                    <p class="habit-purchase-help">Pay manually using an available bank or bKash method. Delivery follows payment verification.</p>
+                    <div class="habit-offer-terms">Regular price: <span data-habit-price="regularFull">{{ $prices['USD']['regularFull'] }}</span>.</div>
                     <small>Windows 10 and 11 compatible</small>
                 </section>
             </div>
@@ -225,7 +224,7 @@
                     <details><summary>Who is Habit Tracker for?</summary><p>It is for anyone who wants a deliberate, visual system for building routines without the noise of an overcomplicated productivity suite.</p></details>
                     <details><summary>Which devices does it support?</summary><p>Habit Tracker is designed as a Windows desktop application for Windows 10 and 11.</p></details>
                     <details><summary>What can I track?</summary><p>You can plan daily habits, record completion or missed days, write monthly observations, set key goals, and review progress over time.</p></details>
-                    <details><summary>How do I purchase a license?</summary><p>Use the purchase button to get in touch about a Windows license, pricing, and availability.</p></details>
+                    <details><summary>How do I purchase the app?</summary><p>Open the purchase page, follow the available payment instructions, and submit your payment details. After manual verification, your app will be emailed to you.</p></details>
                 </div>
             </div>
         </section>

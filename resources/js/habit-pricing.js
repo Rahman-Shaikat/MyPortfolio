@@ -13,6 +13,11 @@ export function initHabitPricing() {
         }
 
         page.dataset.currency = currency;
+        page.querySelectorAll('[data-habit-purchase]').forEach((link) => {
+            const url = new URL(link.href);
+            url.searchParams.set('currency', currency);
+            link.href = url.toString();
+        });
         page.querySelectorAll('[data-habit-price]').forEach((element) => {
             element.textContent = price[element.dataset.habitPrice];
         });

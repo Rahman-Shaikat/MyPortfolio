@@ -1,7 +1,9 @@
 import { initContactPrompts } from './contact-prompts';
 import { initHabitPricing } from './habit-pricing';
+import { initHabitOrderForm } from './habit-order-form';
 
 initHabitPricing();
+initHabitOrderForm();
 
 document.documentElement.classList.add('js');
 
